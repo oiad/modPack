@@ -1,0 +1,63 @@
+/*
+	Originally by Zabn
+	Modified for DayZ Epoch 1.0.6+ by salival (https://github.com/oiad)
+*/
+
+private ["_body","_clothesTaken","_finished","_itemNew","_itemNewName","_okSkin","_playerNear","_result","_skin"];
+
+if (dayz_actionInProgress) exitWith {localize "str_player_actionslimit" call dayz_rollingMessages;};
+dayz_actionInProgress = true;
+
+_body = _this select 3;
+
+player removeAction s_player_clothes;
+s_player_clothes = -1;
+
+if (isNull _body) exitWith {dayz_actionInProgress = false; systemChat "cursorTarget isNull!";};
+
+_playerNear = {isPlayer _x} count (([_body] call FNC_GetPos) nearEntities ["CAManBase", 10]) > 1;
+if (_playerNear) exitWith {dayz_actionInProgress = false; localize "str_pickup_limit_5" call dayz_rollingMessages;};
+
+_skin = typeOf _body;
+
+_itemNew = _skin;
+
+switch (_itemNew) do {
+	case "Survivor3_DZ": {
+		_itemNew = "Survivor2_DZ";
+	};
+	case "Bandit1_DZ": {
+		_itemNew = "Survivor2_DZ";
+	};
+};
+
+_itemNew = "Skin_" + _itemNew;
+_clothesTaken = _body getVariable["clothesTaken",false];
+
+if (_clothesTaken) exitWith {
+	"This Skin has already been taken!" call dayz_rollingMessages;
+	dayz_actionInProgress = false;
+};
+
+_okSkin = isClass (configFile >> "CfgMagazines" >> _itemNew);
+
+if (!_okSkin) exitWith {
+	format ["Currently %1 is not supported by the take clothes script.",_skin] call dayz_rollingMessages;
+	dayz_actionInProgress = false;
+};
+
+_finished = ["Medic",1] call fn_loopAction;
+if (_finished) then {
+	_itemNewName = getText (configFile >> "CfgMagazines" >> _itemNew >> "displayName");
+	_result = [player,_itemNew] call BIS_fnc_invAdd;
+	if (_result) then {
+		_body setVariable["clothesTaken",true,true];
+		format["One %1 has been added to your inventory!",_itemNewName] call dayz_rollingMessages;
+	} else {
+		format["You didn't have enough room to store a %1 :(",_itemNewName] call dayz_rollingMessages;
+	};
+} else {
+	localize "str_epoch_player_26" call dayz_rollingMessages;
+};
+
+dayz_actionInProgress = false;
