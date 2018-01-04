@@ -13,7 +13,7 @@ private ["_canPickLight","_text","_unlock","_lock","_totalKeys","_temp_keys","_t
 "_isModular","_isModularDoor","_isHouse","_isGateOperational","_isGateLockable","_isFence","_isLockableGate","_isUnlocked","_isOpen","_isClosed","_ownerArray","_ownerBuildLock",
 "_ownerPID","_speed","_dog","_vehicle","_inVehicle","_cursorTarget","_primaryWeapon","_currentWeapon","_magazinesPlayer","_onLadder","_canDo",
 "_nearLight","_vehicleOwnerID","_hasHotwireKit","_isPZombie","_dogHandle","_allowedDistance","_id","_upgrade","_weaponsPlayer","_hasCrowbar",
-"_allowed","_hasAccess","_uid","_myCharID","_isLocked"];
+"_allowed","_hasAccess","_uid","_myCharID","_isLocked","_door","_doors"];
 
 _vehicle = vehicle player;
 _inVehicle = (_vehicle != player);
@@ -147,9 +147,24 @@ if (_inVehicle) then {
 		{DZE_myVehicle removeAction _x} count s_player_lockUnlockInside;s_player_lockUnlockInside = [];
 		s_player_lockUnlockInside_ctrl = -1;
 	};
+	_doors = nearestObjects [DZE_myVehicle, ["CinderWallDoorLocked_DZ","Land_DZE_GarageWoodDoorLocked"], 30];
+
+	if (count _doors > 0 && {driver DZE_myVehicle == player}) then {
+		_hasAccess = [player,_doors select 0] call FNC_check_access;
+		if (s_player_gdoor_opener_ctrl < 0 && ((_hasAccess select 0) || (_hasAccess select 2) || (_hasAccess select 3) || (_hasAccess select 4))) then {
+			_door = DZE_myVehicle addAction ["Garage Door Opener","scripts\garageDoorOpener.sqf",_doors select 0, 1, false, true];
+			s_player_gdoor_opener set [count s_player_gdoor_opener,_door];
+			s_player_gdoor_opener_ctrl = 1;
+		};
+	} else {
+		{DZE_myVehicle removeAction _x} count s_player_gdoor_opener;s_player_gdoor_opener = [];
+		s_player_gdoor_opener_ctrl = -1;
+	};
 } else {
 	{DZE_myVehicle removeAction _x} count s_player_lockUnlockInside;s_player_lockUnlockInside = [];
 	s_player_lockUnlockInside_ctrl = -1;
+	{DZE_myVehicle removeAction _x} count s_player_gdoor_opener;s_player_gdoor_opener = [];
+	s_player_gdoor_opener_ctrl = -1;
 };
 
 if (DZE_HeliLift) then {
