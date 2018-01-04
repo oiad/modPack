@@ -37,11 +37,13 @@ All my mods in one place, tested and working by salival
 
 4. Edit any settings you want in <code>init.sqf</code> and in <code>dayz_code\init\variables.sqf</code> please do any Epoch / configVariables.sqf overwrites in <code>dayz_code\init\variables.sqf</code>
 
+5. Pack your <code>DayZ_Epoch_11.Chernarus</code> folder into a PBO with your favourite PBO tool.
+
 # dayz_server folder install:
 
 1. Copy the <code>dayz_server</code> folder to your <code>Arma 2 OA\@dayz_epoch_server\addons</code> folder
 
-2. Pack your <code>dayz_server</code> into a PBO with your favourite PBO tool.
+2. Pack your <code>dayz_server</code> folder into a PBO with your favourite PBO tool.
 
 3. Any server side mods you need to install (WAI/DZMS/DZAI/map edits) should be placed after the following line in <code>dayz_server\system\server_monitor.sqf</code>:
 	```sqf
