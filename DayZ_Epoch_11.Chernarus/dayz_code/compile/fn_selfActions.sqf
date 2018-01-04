@@ -1112,6 +1112,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 	s_player_manageDoor = -1;
 
 	// Custom stuff below
+
 	player removeAction s_givemoney_dialog;
 	s_givemoney_dialog = -1;
 	player removeAction s_bank_dialog;

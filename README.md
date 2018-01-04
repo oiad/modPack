@@ -34,15 +34,44 @@ All my mods in one place, tested and working by salival
 
 3. Edit any settings you want in <code>init.sqf</code> and in <code>dayz_code\init\variables.sqf</code> please do any Epoch / configVariables.sqf overwrites in <code>dayz_code\init\variables.sqf</code>
 
-4. Follow the following installation steps to further modify the installed mods (i.e ZSC for global banking/infiSTAR integration)
-
-4a. [ZSC installation index](https://github.com/oiad/ZSC#index)
-
 # dayz_server folder install:
 
 1. Copy the <code>dayz_server</code> folder to your <code>Arma 2 OA\@dayz_epoch_server\addons</code> folder
 
 2. Pack your <code>dayz_server</code> into a PBO with your favourite PBO tool.
+
+# ZSC Global Banking install:
+
+1. Overwrite all files in your <code>Arma2 OA\MPMissions\DayZ_Epoch_11.Chernarus</code> with the files from the github repo <code>global banking\DayZ_Epoch_11.Chernarus</code>
+
+# extDB install:
+
+1. Copy the <code>@extDB</code> folder to your main <code>Arma 2 Operation Arrowhead</code> folder (or where you host your server)
+
+2. Edit <code>@extDB\extdb-conf.ini</code> to suit your database settings, mainly the database name, username and password.
+
+3. Edit your server batch file or whatever loads your server to include <code>@extDB</code> in the -mod line, i.e for epoch:
+	```sqf
+	"-mod=@extDB;@DayZ_Epoch;@DayZ_Epoch_Server"
+	```
+	for overwatch:
+	```sqf
+	"-mod=@extDB;@DayzOverwatch;@DayZ_Epoch;@DayZ_Epoch_Server"
+	```
+
+# mysql database setup fresh install:
+
+1. If you are only allowed access to your main epoch database from your hosting provider, you can import the <code>SQL\virtualGarage.sql</code> file without editing it.
+
+2. If you want to have an external virtual garage database you will need to edit <code>SQL\virtualGarage.sql</code> and uncomment the following lines:
+	```sql
+	-- CREATE DATABASE IF NOT EXISTS `extdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+	-- USE `extdb`;
+	```
+
+	This will create a seperate database called extDB (useful if you have a couple of servers using the same virtual garage database) FWIW: I had to run this import twice for it to work correctly, it only created the external database the first time, the second time I had to run it to create the table.
+
+3. You will need to edit your <code>@extDB\extdb-conf.ini</code> to suit your database settings!
 
 # infiSTAR install:
 

@@ -8,9 +8,9 @@ dayZ_instance = 11; //Instance ID of this server
 dayZ_serverName = ""; //Shown to all players in the bottom left of the screen (country code + server number)
 
 //Game settings
-dayz_antihack = 0; // DayZ Antihack / 1 = enabled // 0 = disabled
-dayz_REsec = 0; // DayZ RE Security / 1 = enabled // 0 = disabled
-dayz_enableRules = false; //Enables a nice little news/rules feed on player login (make sure to keep the lists quick).
+dayz_antihack = 1; // DayZ Antihack / 1 = enabled // 0 = disabled
+dayz_REsec = 1; // DayZ RE Security / 1 = enabled // 0 = disabled
+dayz_enableRules = true; //Enables a nice little news/rules feed on player login (make sure to keep the lists quick).
 dayz_quickSwitch = false; //Turns on forced animation for weapon switch. (hotkeys 1,2,3) False = enable animations, True = disable animations
 dayz_POIs = false; //Adds Point of Interest map additions (negatively impacts FPS)
 dayz_infectiousWaterholes = false; //Randomly adds some bodies, graves and wrecks by ponds (negatively impacts FPS)
@@ -63,9 +63,9 @@ DZE_PlotPole = [30,45]; // Radius owned by plot pole [Regular objects,Other plot
 DZE_BuildingLimit = 150; // Max number of built objects allowed in DZE_PlotPole radius
 DZE_SafeZonePosArray = [[[6325,7807,0],100],[[4063,11664,0],100],[[11447,11364,0],100],[[1606,7803,0],100],[[12944,12766,0],100],[[12060,12638,0],100]]; // Format is [[[3D POS],RADIUS],[[3D POS],RADIUS]]; Stops loot and zed spawn, salvage and players being killed if their vehicle is destroyed in these zones.
 DZE_SelfTransfuse = true; // Allow players to bloodbag themselves
-DZE_selfTransfuse_Values = [12000,10,120]; // [blood amount given, infection chance %, cooldown in seconds]
-MaxDynamicDebris = 10; // Max number of random road blocks to spawn around the map
-MaxVehicleLimit = 150; // Max number of random vehicles to spawn around the map
+DZE_selfTransfuse_Values = [12000,15,120]; // [blood amount given, infection chance %, cooldown in seconds]
+MaxDynamicDebris = 500; // Max number of random road blocks to spawn around the map
+MaxVehicleLimit = 300; // Max number of random vehicles to spawn around the map
 spawnArea = 1400; // Distance around markers to find a safe spawn position
 spawnShoremode = 1; // Random spawn locations  1 = on shores, 0 = inland
 EpochUseEvents = false; //Enable event scheduler. Define custom scripts in dayz_server\modules to run on a schedule.
