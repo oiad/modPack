@@ -1,7 +1,7 @@
 # salivals mod pack.
 All my mods in one place, tested and working by salival
 
-* Discussion URL:
+* Discussion URL: https://epochmod.com/forum/topic/44789-salivals-mod-pack-all-my-mods-tested-working/
 
 # Supported mods:
 
@@ -57,4 +57,4 @@ All my mods in one place, tested and working by salival
 
 1. Currently I don't have battleye filters set up for DEFAULT Epoch 1.0.6.2 filters, I am working on this but there is a lot that has changed since Epoch 1.0.6.1
 
-**[>> Download <<](https://github.com/oiad/communityLocalizations/archive/master.zip)**
+**[>> Download <<](https://github.com/oiad/modPack/archive/master.zip)**
