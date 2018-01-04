@@ -29,11 +29,13 @@ All my mods in one place, tested and working by salival
 
 # Mission folder install:
 
-1. Currently this is set up for Chernarus, you can change this to how you see fit but for the install purposes we will carry on with Chernarus.
+1. Currently this is set up for Epoch (no Overwatch) Chernarus, you can change this to how you see fit but for the install purposes we will carry on with Chernarus.
 
 2. Copy the <code>DayZ_Epoch_11.Chernarus</code> folder to your <code>Arma2 OA\MPMissions</code> folder
 
-3. Edit any settings you want in <code>init.sqf</code> and in <code>dayz_code\init\variables.sqf</code> please do any Epoch / configVariables.sqf overwrites in <code>dayz_code\init\variables.sqf</code>
+3. Rename the <code>mission - overwatch.sqm</code> to <code>mission.sqm</code> if you are using Overwatch
+
+4. Edit any settings you want in <code>init.sqf</code> and in <code>dayz_code\init\variables.sqf</code> please do any Epoch / configVariables.sqf overwrites in <code>dayz_code\init\variables.sqf</code>
 
 # dayz_server folder install:
 
