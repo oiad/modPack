@@ -50,7 +50,7 @@ if (_deployable call getPermanent) then {
 	PVDZ_obj_Destroy = [_cursorTarget getVariable["ObjectID","0"],_cursorTarget getVariable["ObjectUID","0"],player,_cursorTarget,dayz_authKey];
 	publicVariableServer "PVDZ_obj_Destroy";
 } else {
-	deleteVehicle _deployable;
+	deleteVehicle _cursorTarget;
 };
 
 player removeAction (_deployable call getActionId);
