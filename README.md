@@ -9,6 +9,7 @@ All my mods in one place, tested and working by salival
 * Community Localizations by [@salival (repo here)](https://github.com/oiad/communityLocalizations)
 * Deploy Anything by [@salival (repo here)](https://github.com/oiad/DayZEpochDeployableBike)
 * Locate Vehicle by [@salival (repo here)](https://github.com/oiad/locateVehicle)
+* Garage Door Opener by [@salival (repo here)](https://github.com/oiad/garageDoorOpener)
 * Safe Zone Relocate by [@salival (repo here)](https://github.com/oiad/safeZoneRelocate)
 * Service Points by [@salival (repo here)](https://github.com/oiad/service_points)
 * Take Clothes by [@salival (repo here)](https://github.com/oiad/TakeClothes)
