@@ -43,6 +43,11 @@ All my mods in one place, tested and working by salival
 
 2. Pack your <code>dayz_server</code> into a PBO with your favourite PBO tool.
 
+3. Any server side mods you need to install (WAI/DZMS/DZAI/map edits) should be placed after the following line in <code>dayz_server\system\server_monitor.sqf</code>:
+	```sqf
+	[] spawn server_spawnEvents;
+	```
+
 # ZSC Global Banking install:
 
 1. Overwrite all files in your <code>Arma2 OA\MPMissions\DayZ_Epoch_11.Chernarus</code> with the files from the github repo <code>global banking\DayZ_Epoch_11.Chernarus</code>
