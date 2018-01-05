@@ -45,7 +45,7 @@ class CfgSounds
 };
 
 class RscTitles {
-    #include "dayz_code\configs\zschud.hpp"
+    #include "scripts\zsc\playerHud.hpp"
 	class wm_disp {
 		idd = -1;
 		onLoad = "uiNamespace setVariable ['wm_disp', _this select 0]";
@@ -82,11 +82,12 @@ class RscTitles {
 
 #include "dayz_code\gui\description.hpp"
 #include "\z\addons\dayz_code\Configs\CfgLoot\CfgLoot.hpp"
-#include "dayz_code\Configs\CfgServerTrader.hpp"
+//#include "dayz_code\Configs\CfgServerTrader.hpp" // Uncomment for coins CfgServerTrader files.
+#include "\z\addons\dayz_code\Configs\CfgServerTrader\CfgServerTrader.hpp" // Standard briefcase trader files.
 
 #include "\z\addons\dayz_code\Configs\RscDisplay\ZSCdefines.hpp"
 #include "dayz_code\configs\RscDisplay\advancedTrading.hpp"
-#include "dayz_code\configs\zscdialogs.hpp"
+#include "scripts\zsc\zsc.hpp"
 
 #include "scripts\virtualGarage\virtualGarage.hpp"
 #include "scripts\vkc\vkc.hpp"

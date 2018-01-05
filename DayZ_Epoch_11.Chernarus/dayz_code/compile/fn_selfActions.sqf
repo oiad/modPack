@@ -881,32 +881,53 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 			s_player_clothes = -1;
 		};
 	};
-
-	if (_isMan && {!_isAlive} && {!(_cursorTarget isKindOf "Animal")} && {player distance _cursorTarget < 5}) then {
-		if (s_player_checkWallet < 0) then {
-			s_player_checkWallet = player addAction [localize "STR_ZSC_CHECK_WALLET","scripts\zsc\checkWallet.sqf",_cursorTarget,0,false,true];
+	if (Z_singleCurrency) then {
+		if (_isMan && {!_isAlive} && {!(_cursorTarget isKindOf "Animal")} && {player distance _cursorTarget < 5}) then {
+			if (s_player_checkWallet < 0) then {
+				s_player_checkWallet = player addAction [localize "STR_ZSC_CHECK_WALLET","scripts\zsc\checkWallet.sqf",_cursorTarget,0,false,true];
+			};
+		} else {
+			player removeAction s_player_checkWallet;
+			s_player_checkWallet = -1;
 		};
-	} else {
-		player removeAction s_player_checkWallet;
-		s_player_checkWallet = -1;
-	};
 
-	if (_typeOfCursorTarget in DZE_MoneyStorageClasses && {!_isLocked} && {!(_typeOfCursorTarget in DZE_LockedStorage)} && {player distance _cursorTarget < 5}) then {
-		if (s_bank_dialog < 0) then {
-			s_bank_dialog = player addAction [localize "STR_ZSC_ACCESS_BANK","scripts\zsc\bankDialog.sqf",_cursorTarget,1,true,true];
+		if (_typeOfCursorTarget in DZE_MoneyStorageClasses && {!_isLocked} && {!(_typeOfCursorTarget in DZE_LockedStorage)} && {player distance _cursorTarget < 5}) then {
+			if (s_bank_dialog < 0) then {
+				s_bank_dialog = player addAction [localize "STR_ZSC_ACCESS_BANK","scripts\zsc\bankDialog.sqf",_cursorTarget,1,true,true];
+			};
+		} else {
+			player removeAction s_bank_dialog;
+			s_bank_dialog = -1;
 		};
-	} else {
-		player removeAction s_bank_dialog;
-		s_bank_dialog = -1;
-	};
 
-	if (_isAlive && {_typeOfCursorTarget in AllPlayers} && {isPlayer _cursorTarget}) then {
-		if (s_givemoney_dialog < 0) then {
-			s_givemoney_dialog = player addAction [format [localize "STR_ZSC_TRADE_COINS",CurrencyName,name _cursorTarget],"scripts\zsc\givePlayer.sqf",_cursorTarget,3,true,true];
+		if (_isAlive && {_typeOfCursorTarget in AllPlayers} && {isPlayer _cursorTarget}) then {
+			if (s_givemoney_dialog < 0) then {
+				s_givemoney_dialog = player addAction [format [localize "STR_ZSC_TRADE_COINS",CurrencyName,name _cursorTarget],"scripts\zsc\givePlayer.sqf",_cursorTarget,3,true,true];
+			};
+		} else {
+			player removeAction s_givemoney_dialog;
+			s_givemoney_dialog = -1;
 		};
-	} else {
-		player removeAction s_givemoney_dialog;
-		s_givemoney_dialog = -1;
+
+		if (Z_globalBanking) then {
+			if (_isMan && {!(isPlayer _cursorTarget)} && {_typeOfCursorTarget in ZSC_bankTraders} && {!_isPZombie}) then {
+				if (s_bank_dialog1 < 0) then {
+					s_bank_dialog1 = player addAction [localize "STR_ZSC_BANK_TELLER","scripts\zsc\atmDialog.sqf",_cursorTarget,3,true,true];
+				};
+			} else {
+				player removeAction s_bank_dialog1;
+				s_bank_dialog1 = -1;
+			};
+
+			if (_typeOfCursorTarget in ZSC_bankObjects && {player distance _cursorTarget < 5}) then {
+				if (s_bank_dialog2 < 0) then {
+					s_bank_dialog2 = player addAction [localize "STR_ZSC_BANK_ATM","scripts\zsc\atmDialog.sqf",_cursorTarget,3,true,true];
+				};
+			} else {
+				player removeAction s_bank_dialog2;
+				s_bank_dialog2 = -1;
+			};
+		};
 	};
 
 	if (_isVehicle && {_characterID == "0"} && {"ItemKeyKit" in weapons player} && {!_isMan} && {_isAlive}) then {
@@ -1132,6 +1153,10 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 	s_givemoney_dialog = -1;
 	player removeAction s_bank_dialog;
 	s_bank_dialog = -1;
+	player removeAction s_bank_dialog1;
+	s_bank_dialog1 = -1;
+	player removeAction s_bank_dialog2;
+	s_bank_dialog2 = -1;
 	player removeAction s_player_checkWallet;
 	s_player_checkWallet = -1;
 

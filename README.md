@@ -15,7 +15,7 @@ All my mods in one place, tested and working by salival
 * Take Clothes by [@salival (repo here)](https://github.com/oiad/TakeClothes)
 * Virtual Garage by [@salival (repo here)](https://github.com/oiad/virtualGarage)
 * Vehicle Key Changer by [@salival (repo here)](https://github.com/oiad/vkc)
-* ZSC by [@salival (repo here)](https://github.com/oiad/ZSC)
+* ZSC/Global Banking by [@salival (repo here)](https://github.com/oiad/ZSC)
 
 # REPORTING ERRORS/PROBLEMS
 
@@ -35,7 +35,12 @@ All my mods in one place, tested and working by salival
 
 3. Rename the <code>mission - overwatch.sqm</code> to <code>mission.sqm</code> if you are using Overwatch
 
-4. Edit any settings you want in <code>init.sqf</code> and in <code>dayz_code\init\variables.sqf</code> please do any Epoch / configVariables.sqf overwrites in <code>dayz_code\init\variables.sqf</code>
+4. Any overwrites to any settings you make from the following files:
+	```sqf
+	https://github.com/EpochModTeam/DayZ-Epoch/blob/master/SQF/dayz_code/configVariables.sqf
+	https://github.com/EpochModTeam/DayZ-Epoch/blob/master/Server%20Files/MPMissions/DayZ_Epoch_11.Chernarus/init.sqf
+	```
+	Please put your overwrites in <code>dayz_code\init\variables.sqf</code>
 
 5. Pack your <code>DayZ_Epoch_11.Chernarus</code> folder into a PBO with your favourite PBO tool.
 
@@ -50,9 +55,14 @@ All my mods in one place, tested and working by salival
 	[] spawn server_spawnEvents;
 	```
 
-# ZSC Global Banking install:
+# ZSC/Global Banking:
 
-1. Overwrite all files in your <code>Arma2 OA\MPMissions\DayZ_Epoch_11.Chernarus</code> with the files from the github repo <code>global banking\DayZ_Epoch_11.Chernarus</code>
+1. In <code>DayZ_Epoch_11.Chernarus\dayz_code\init\variables.sqf</code> toggle the following options to suit your servers requirements:
+	```sqf
+	Z_singleCurrency = false; // Enable or disable coins?
+	Z_globalBanking = false; // Enable global banking? Disabled by default.
+	Z_globalBankingTraders = false; // Enable global banking traders at trader cities?
+	```
 
 # extDB install:
 

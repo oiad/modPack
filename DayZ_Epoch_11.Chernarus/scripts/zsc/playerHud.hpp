@@ -1,4 +1,4 @@
-﻿class ZSC_Money_Display {
+class ZSC_Money_Display {
 	idd = -1;
 	fadeout = 0;
 	fadein = 0;

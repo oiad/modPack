@@ -114,6 +114,7 @@ if (isServer) then {
 	call compile preprocessFileLineNumbers "\z\addons\dayz_server\system\dynamic_vehicle.sqf";
 	call compile preprocessFileLineNumbers "\z\addons\dayz_server\system\server_monitor.sqf";
 	execVM "\z\addons\dayz_server\traders\chernarus11.sqf"; //Add trader agents
+	if (Z_singleCurrency && {Z_globalBanking && Z_globalBankingTraders}) then {execVM "\z\addons\dayz_server\bankTraders\chernarus.sqf";}; // Add banking agents
 
 	//Get the server to setup what waterholes are going to be infected and then broadcast to everyone.
 	if (dayz_infectiousWaterholes && (toLower worldName == "chernarus")) then {execVM "\z\addons\dayz_code\system\mission\chernarus\infectiousWaterholes\init.sqf";};
@@ -135,9 +136,11 @@ if (!isDedicated) then {
 	//[false,12] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 	if (DZE_R3F_WEIGHT) then {execVM "\z\addons\dayz_code\external\R3F_Realism\R3F_Realism_Init.sqf";};
 
-	call compile preprocessFileLineNumbers "scripts\zsc\zscInit.sqf";
-	execVM "scripts\zsc\playerHud.sqf";
-	execVM "dayz_code\compile\remote_message.sqf";
+	if (Z_singleCurrency) then {
+		call compile preprocessFileLineNumbers "scripts\zsc\zscInit.sqf";
+		execVM "scripts\zsc\playerHud.sqf";
+		execVM "dayz_code\compile\remote_message.sqf";
+	};
 	execVM "scripts\servicePoints\init.sqf";
 
 	waitUntil {scriptDone progress_monitor};
