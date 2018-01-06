@@ -29,10 +29,11 @@ All my mods in one place, tested and working by salival
 
 * [Mission folder install](https://github.com/oiad/modPack#mission-folder-install)
 * [dayz_server install](https://github.com/oiad/modPack#dayz_server-folder-install)
-* [Enabling ZSC/global banking]()
+* [Enabling ZSC/global banking](https://github.com/oiad/modPack#enabling-zscglobal-banking)
 * [extDB install](https://github.com/oiad/modPack#extdb-install)
 * [mySQL database setup](https://github.com/oiad/modPack#mysql-database-setup)
 * [infiSTAR install](https://github.com/oiad/modPack#infistar-install)
+* [Battleye Filters] (https://github.com/oiad/modPack#battleye-filters)
 	
 # Install:
 
