@@ -25,7 +25,18 @@ All my mods in one place, tested and working by salival
 	C:\users\<YOUR WINDOWS USERNAME>\AppData\Local\Arma 2 OA\ArmA2OA.RPT
 	```
 
+# INDEX:
+
+* [Mission folder install](https://github.com/oiad/modPack#mission-folder-install)
+* [dayz_server install](https://github.com/oiad/modPack#dayz_server-folder-install)
+* [Enabling ZSC/global banking]()
+* [extDB install](https://github.com/oiad/modPack#extdb-install)
+* [mySQL database setup](https://github.com/oiad/modPack#mysql-database-setup)
+* [infiSTAR install](https://github.com/oiad/modPack#infistar-install)
+	
 # Install:
+
+By default the trader files are in Briefcase format and single currency is turned off. To enable coins please see this option: [Enabling coins](https://github.com/oiad/modPack#zscglobal-banking)
 
 # Mission folder install:
 
@@ -55,13 +66,23 @@ All my mods in one place, tested and working by salival
 	[] spawn server_spawnEvents;
 	```
 
-# ZSC/Global Banking:
+# Enabling ZSC/global banking:
 
 1. In <code>DayZ_Epoch_11.Chernarus\dayz_code\init\variables.sqf</code> toggle the following options to suit your servers requirements:
 	```sqf
 	Z_singleCurrency = false; // Enable or disable coins?
 	Z_globalBanking = false; // Enable global banking? Disabled by default.
 	Z_globalBankingTraders = false; // Enable global banking traders at trader cities?
+	```
+
+2. In <code>DayZ_Epoch_11.Chernarus\description.ext</code> uncomment the following line:
+	```sqf
+	//#include "dayz_code\Configs\CfgServerTrader.hpp" // Uncomment for coins CfgServerTrader files.
+	```
+	
+	And delete or comment out this line:
+	```sqf
+	#include "\z\addons\dayz_code\Configs\CfgServerTrader\CfgServerTrader.hpp" // Standard briefcase trader files.
 	```
 
 # extDB install:
@@ -79,7 +100,7 @@ All my mods in one place, tested and working by salival
 	"-mod=@extDB;@DayzOverwatch;@DayZ_Epoch;@DayZ_Epoch_Server"
 	```
 
-# mysql database setup fresh install:
+# mysql database setup	:
 
 1. If you are only allowed access to your main epoch database from your hosting provider, you can import the <code>SQL\virtualGarage.sql</code> file without editing it.
 
