@@ -632,7 +632,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 		};
 		if (s_player_copyToKey < 0) then {
 			if ((_hasKey && {"ItemKeyKit" in weapons player} && {(count _temp_keys) > 1} && {!_isLocked}) || {_cursorTarget getVariable ["hotwired",false]}) then {
-				s_player_copyToKey = player addAction ["<t color=""#0096FF"">Change vehicle key</t>","scripts\vkc\vehicleKeyChanger.sqf",[_cursorTarget,_characterID,if (_cursorTarget getVariable ["hotwired",false]) then {"claim"} else {"change"}],5,false,true];
+				s_player_copyToKey = player addAction [localize "STR_VKC_CHANGE_ACTION","scripts\vkc\vehicleKeyChanger.sqf",[_cursorTarget,_characterID,if (_cursorTarget getVariable ["hotwired",false]) then {"claim"} else {"change"}],5,false,true];
 			};
 		};
 	} else {
@@ -903,7 +903,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 		if (s_player_claimVehicle < 0) then {
 			_totalKeys = call epoch_tempKeys;
 			if (count (_totalKeys select 0) > 0) then {
-				s_player_claimVehicle = player addAction [format ["<t color=""#0096FF"">Claim %1</t>",_text],"scripts\vkc\vehicleKeyChanger.sqf",[_cursorTarget,_characterID,"claim"],5,false,true];
+				s_player_claimVehicle = player addAction [format [localize "STR_VKC_CLAIM_ACTION",_text],"scripts\vkc\vehicleKeyChanger.sqf",[_cursorTarget,_characterID,"claim"],5,false,true];
 			};
 		};
 	} else {
