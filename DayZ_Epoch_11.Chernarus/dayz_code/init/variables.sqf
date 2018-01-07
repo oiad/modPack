@@ -1,6 +1,6 @@
 Z_singleCurrency = false; // Enable or disable coins?
 Z_globalBanking = false; // Enable global banking? Disabled by default.
-Z_globalBankingTraders = false; // Enable global banking traders at trader cities?
+Z_globalBankingTraders = false; // Enable global banking traders at trader cities? Disabled by default.
 
 DZE_maintainCurrencyRate = 1000;
 
