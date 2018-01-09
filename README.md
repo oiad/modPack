@@ -33,7 +33,7 @@ All my mods in one place, tested and working by salival
 * [extDB install](https://github.com/oiad/modPack#extdb-install)
 * [mySQL database setup](https://github.com/oiad/modPack#mysql-database-setup)
 * [infiSTAR install](https://github.com/oiad/modPack#infistar-install)
-* [Battleye Filters] (https://github.com/oiad/modPack#battleye-filters)
+* [Battleye Filters](https://github.com/oiad/modPack#battleye-filters)
 	
 # Install:
 
