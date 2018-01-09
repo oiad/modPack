@@ -704,10 +704,12 @@
 		</Key>
 		<Key ID="STR_VKC_CLAIM_ACTION">
 			<English>Claim %1</English>
+			<German>%1 beanspruchen</German>
 			<Russian>Присвоить %1</Russian>
 		</Key>
 		<Key ID="STR_VKC_CHANGE_ACTION">
 			<English>Change vehicle key</English>
+			<German>Fahrzeugschlüssel wechseln</German>
 			<Russian>Сменить ключ</Russian>
 		</Key>
 	</Package>
