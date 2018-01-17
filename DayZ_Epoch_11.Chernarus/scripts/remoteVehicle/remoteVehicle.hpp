@@ -289,7 +289,7 @@ class remoteVehicle {
 			onButtonClick = "rv_isOk = true;closeDialog 0;";
 			x = 0.1 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.9 - (1 / 25);
-			w = (6.25 / 36);
+			w = (6.25 / 20);
 			h = (1 / 25);
 		};
 
