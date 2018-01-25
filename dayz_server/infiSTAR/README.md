@@ -4,5 +4,5 @@
 
 2. In <code>Arma 2 OA\@dayz_epoch_server\addons\dayz_server\init\server_functions.sqf</code> find the following line and uncomment it:
 	```sqf
-	//[] spawn {[] execVM "\z\addons\dayz_server\infiSTAR\AH.sqf";};
+	//[] execVM "\z\addons\dayz_server\infiSTAR\AH.sqf";
 	```
