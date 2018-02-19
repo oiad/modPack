@@ -26,12 +26,12 @@ if (_action == "rearm") then {
 };
 
 if (typeName _amount == "STRING") then {
-	if (_amount == localize "str_temp_param_disabled") then {
-		if (_action == "rearm") then {_reason = format["%1 is unable to be rearmed.",_weaponName]; _disabled = true};
-		if (_action == "repair") then {_reason = format["%1 is unable to be repaired.",_name]; _disabled = true};
-		if (_action == "refuel") then {_reason = format["%1 is unable to be refueled.",_name]; _disabled = true};
+	if (_amount == (localize "str_temp_param_disabled")) then {
+		if (_action == "rearm") then {_reason = format[localize "STR_SP_UNABLE_REARM",_weaponName]; _disabled = true};
+		if (_action == "repair") then {_reason = format[localize "STR_SP_UNABLE_REPAIR",_name]; _disabled = true};
+		if (_action == "refuel") then {_reason = format[localize "STR_SP_UNABLE_REFUEL",_name]; _disabled = true};
 	};
-	if (_amount == localize "strwffree") then {_amount = 0};
+	if (_amount == (localize "strwffree")) then {_amount = 0};
 };
 
 if (_disabled) exitWith {[_reason,1] call dayz_rollingMessages};
@@ -63,15 +63,15 @@ if (_enoughMoney) then {
 		if (_action == "refuel") then {
 			[player,50,true,getPosATL player] spawn player_alertZombies;
 			_vehicle engineOn false;
-			[format["Refueling %1...",_name],1] call dayz_rollingMessages;
+			[format[localize "STR_SP_REFUELING",_name],1] call dayz_rollingMessages;
 			[_vehicle,"refuel",0,false] call dayz_zombieSpeak;
 
 			while {vehicle player == _vehicle} do {
-				if ([0,0,0] distance (velocity _vehicle) > 1) exitWith {[format["Refueling of %1 stopped",_name],1] call dayz_rollingMessages};
+				if ([0,0,0] distance (velocity _vehicle) > 1) exitWith {[format[localize "STR_SP_REFUELING_STOPPED",_name],1] call dayz_rollingMessages};
 				_fuel = (fuel _vehicle) + ((_this select 3) select 3);
 				if (_fuel > 0.99) exitWith {
 					_vehicle setFuel 1;
-					[format["%1 Refueled",_name],1] call dayz_rollingMessages;
+					[format[localize "STR_SP_REFUEL_OK",_name],1] call dayz_rollingMessages;
 				};
 				_vehicle setFuel _fuel;
 				uiSleep ((_this select 3) select 2);
@@ -86,7 +86,7 @@ if (_enoughMoney) then {
 			{
 				if ((vehicle player != _vehicle) || {[0,0,0] distance (velocity _vehicle) > 1}) exitWith {
 					_allRepaired = false;
-					[format["Repairing of %1 stopped",_name],1] call dayz_rollingMessages;
+					[format[localize "STR_SP_REPAIRING_STOPPED",_name],1] call dayz_rollingMessages;
 				};
 				_damage = [_vehicle,_x] call object_getHit;
 				if (_damage > 0) then {
@@ -95,7 +95,7 @@ if (_enoughMoney) then {
 					_partName set [1,45];
 					_partName set [2,20];
 					_partName = toString _partName;
-					[format ["Repairing%1...",_partName],1] call dayz_rollingMessages;
+					[format [localize "STR_SP_REPAIRING",_partName],1] call dayz_rollingMessages;
 					_selection = getText(configFile >> "cfgVehicles" >> _type >> "HitPoints" >> _x >> "name");
 					_strH = "hit_" + (_selection);
 					_vehicle setHit[_selection,0];
@@ -109,7 +109,7 @@ if (_enoughMoney) then {
 			if (_allRepaired) then {
 				_vehicle setDamage 0;
 				_vehicle setVelocity [0,0,1];
-				[format["%1 Repaired",_name],1] call dayz_rollingMessages;
+				[format[localize "STR_SP_REPAIR_OK",_name],1] call dayz_rollingMessages;
 			};
 		};
 
@@ -118,12 +118,9 @@ if (_enoughMoney) then {
 			_magazines = getArray (configFile >> "CfgWeapons" >> _weaponType >> "magazines");
 			_ammo = _magazines select 0;
 
-			_magazines = _vehicle magazinesTurret _turret;
-			{_vehicle removeMagazineTurret [_ammo,_turret];} forEach _magazines;
-
 			for "_i" from 1 to _magazineCount do {_vehicle addMagazineTurret [_ammo,_turret];};
 
-			[format["%1 of %2 Rearmed",_weaponName,_name],1] call dayz_rollingMessages;
+			[format[localize "STR_SP_REARMED",_weaponName,_name],1] call dayz_rollingMessages;
 		};
 		call player_forceSave;
 	} else {
@@ -132,8 +129,8 @@ if (_enoughMoney) then {
 } else {
 	_itemText = if (Z_SingleCurrency) then {CurrencyName} else {[_amount,true] call z_calcCurrency};
 	if (Z_SingleCurrency) then {
-		systemChat format ["You need %1 %2 to %3 your %4.",[_amount] call BIS_fnc_numberText,_itemText,_action,_name];
+		systemChat format [localize "STR_SP_FAIL_COINS",[_amount] call BIS_fnc_numberText,_itemText,_action,_name];
 	} else {
-		systemChat format ["You need %1 to %2 your %3.",_itemText,_action,_name];
+		systemChat format [localize "STR_SP_FAIL_BRIEFCASES",_itemText,_action,_name];
 	};
 };

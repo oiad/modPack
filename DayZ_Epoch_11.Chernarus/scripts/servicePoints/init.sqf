@@ -2,7 +2,7 @@
 	Vehicle Service Point by Axe Cop
 	Rewritten for single currency, gems, briefcase support and 1.0.6 epoch compatibility by salival - https://github.com/oiad/
 	
-	Requires DayZ Epoch 1.0.6.1
+	Requires DayZ Epoch 1.0.6.2
 
 	This version adds support for both single currency and gems (from the epoch 1.0.6 update) as well as the original epoch briefcase currency system. 
 	Instead of pricing things like the original way, prices are now done on a "worth" similar to how coins are done. The price value of items are below.
@@ -41,10 +41,10 @@ _servicePointClasses = ["Map_A_FuelStation_Feed","Land_A_FuelStation_Feed","Fuel
 _maxDistance = 50; // maximum distance from a service point for the options to be shown
 _actionTitleFormat = "%1 (%2)"; // text of the vehicle menu, %1 = action name (Refuel, Repair, Rearm), %2 = costs (see format below)
 _actionCostsFormat = "%2 %1"; // %1 = item name, %2 = item count
-_message = "Vehicle Service Point nearby"; // message to be shown when in range of a service point (set to "" to disable)
+_message = localize "STR_SP_MESSAGE"; // This is translated from your stringtable.xml in your mission folder root. Set to "" to disable
 _cycleTime = 5; // Time in sections for how often the action menu will be refreshed and how often it will search for a nearby fuel station (setting this too low can make a lot of lag)
-_disabledText = localize "str_temp_param_disabled";
-_freeText = localize "strwffree";
+_disabledText = (localize "str_temp_param_disabled");
+_freeText = (localize "strwffree");
 
 // refuel settings
 _refuel_enable = true; // enable or disable the refuel option
@@ -67,7 +67,7 @@ _repair_costs = [
 _rearm_enable = true; // enable or disable the rearm option
 _rearm_defaultcost = 10000; // Default cost to rearm a weapon. (10000 worth == 1 briefcase)
 _rearm_magazineCount = 2; // amount of magazines to be added to the vehicle weapon
-_rearm_ignore = [localize "str_dn_horn",localize "str_dn_laser_designator"]; // Array of weapon display names that are ignored in the rearm listing.
+_rearm_ignore = [(localize "str_dn_horn"),(localize "str_dn_laser_designator")]; // Array of weapon display names that are ignored in the rearm listing.
 
 /*
 	_ream_costs is an array based on the AMMO type. I.e M240, MK19, PKM, PKT, M134 etc. 
@@ -76,11 +76,16 @@ _rearm_ignore = [localize "str_dn_horn",localize "str_dn_laser_designator"]; // 
 */
 
 _rearm_costs = [
-	[localize "str_mn_40rnd_grad",_disabledText], // BM-21 Grad is disabled (ammo is broken)
-	[localize "str_dn_flarelauncher",2000], // Flares
-	[localize "str_dn_m240",5000], // M240
-	[localize "str_dn_pk",5000], // PKM
-	[localize "str_dn_pkt",5000] // PKT
+	[(localize "str_mn_40rnd_grad"),_disabledText], // BM-21 Grad is disabled (ammo is broken)
+	[(localize "str_dn_flarelauncher"),2000], // Flares
+	[(localize "str_dn_m240"),5000], // M240
+	[(localize "str_dn_pk"),5000], // PKM
+	[(localize "str_dn_pkt"),5000], // PKT
+	[(localize "str_sn_m134"),5000], // M134
+	[(localize "str_dn_m2_mg"),5000], // M2
+	[(localize "str_dn_mk19"),5000], // MK19
+	[(localize "str_dn_ags30"),5000], // AGS-30
+	[(localize "str_dn_dshkm"),5000] // DSHKM
 ];
 
 // ---------------- CONFIG END ----------------
