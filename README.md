@@ -54,7 +54,11 @@ By default the trader files are in Briefcase format and single currency is turne
 	```
 	Please put your overwrites in <code>dayz_code\init\variables.sqf</code>
 
-5. Pack your <code>DayZ_Epoch_11.Chernarus</code> folder into a PBO with your favourite PBO tool.
+5. Download the <code>stringTable.xml</code> file linked below from the [Community Localization GitHub](https://github.com/oiad/communityLocalizations) and copy it to your mission folder, it is a community based localization file and contains translations for major community mods including this one.
+
+**[>> Download stringTable.xml <<](https://github.com/oiad/communityLocalizations/blob/master/stringtable.xml)**
+
+6. Pack your <code>DayZ_Epoch_11.Chernarus</code> folder into a PBO with your favourite PBO tool.
 
 # dayz_server folder install:
 
