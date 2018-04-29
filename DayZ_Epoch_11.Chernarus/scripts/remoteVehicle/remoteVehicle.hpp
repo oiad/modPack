@@ -236,7 +236,7 @@ class remoteVehicle {
 
 		class VehicleInfoHeader : rv_RscText {
 			idc = 8830;
-			text = $STR_RV_VEHICLE_INFO;
+			text = $STR_CL_RV_VEHICLE_INFO;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
 			x = 0.47; y = 0.26;
 			w = 0.42;
@@ -276,7 +276,7 @@ class remoteVehicle {
 
 		class VehicleTitleBox : rv_RscText {
 			idc = 8804;
-			text = $STR_RV_VEHICLE_LIST;
+			text = $STR_CL_RV_VEHICLE_LIST;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
 			x = 0.11; y = 0.26;
 			w = 0.35;
@@ -285,7 +285,7 @@ class remoteVehicle {
 
 		class selectVehicle : rv_RscButtonMenu {
 			idc = 8850;
-			text = $STR_RV_SELECT_VEHICLE;
+			text = $STR_CL_RV_SELECT_VEHICLE;
 			onButtonClick = "rv_isOk = true;closeDialog 0;";
 			x = 0.1 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.9 - (1 / 25);

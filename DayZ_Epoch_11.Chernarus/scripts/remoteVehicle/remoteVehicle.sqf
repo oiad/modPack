@@ -39,7 +39,7 @@ if (_foundPos >= 0) then {
 	_keyDisplay = (_keyList select 1) select _foundPos;
 };
 
-if (_foundPos == -1) exitWith {systemChat localize "STR_RV_NO_KEYS"; call _exit;};
+if (_foundPos == -1) exitWith {systemChat localize "STR_CL_RV_NO_KEYS"; call _exit;};
 
 rv_vehicleList = [];
 _vehicleFound = false;
@@ -58,7 +58,7 @@ if (count rv_vehicleList > 1) then {
 	createDialog "remoteVehicle";
 
 	_display = uiNamespace getVariable["rv_dialog", displayNull];
-	_display displayCtrl 8801 ctrlSetText(format [localize "STR_RV_TITLE",_keyDisplay]);
+	_display displayCtrl 8801 ctrlSetText(format[localize "STR_CL_RV_TITLE",_keyDisplay]);
 
 	_control = ((findDisplay 8800) displayCtrl 8802);
 	lbClear _control;
@@ -79,28 +79,28 @@ if (count rv_vehicleList > 1) then {
 
 if (!rv_isOk) exitWith {call _exit;};
 
-if (!_vehicleFound) exitWith {systemChat localize "STR_RV_NO_VEHICLES"; call _exit;};
+if (!_vehicleFound) exitWith {systemChat localize "STR_CL_RV_NO_VEHICLES"; call _exit;};
 
 _vehicleType = typeOf rv_selected;
 _displayName = getText(configFile >> "CfgVehicles" >> _vehicleType >> "displayName");
 
-if (!alive rv_selected) exitWith {systemChat localize "STR_RV_DESTROYED"; call _exit;};
-if (_checkDistance && {(player distance rv_selected) >= _distance}) exitWith {format [localize "STR_RV_RANGE_FAIL",_displayName] call dayz_rollingMessages; call _exit;};
+if (!alive rv_selected) exitWith {systemChat localize "STR_CL_RV_DESTROYED"; call _exit;};
+if (_checkDistance && {(player distance rv_selected) >= _distance}) exitWith {format[localize "STR_CL_RV_RANGE_FAIL",_displayName] call dayz_rollingMessages; call _exit;};
 
 if (_option == 1) then {
 	_group = units group player;
 
-	systemChat format [localize "STR_RV_EJECT",_displayName];
+	systemChat format[localize "STR_CL_RV_EJECT",_displayName];
 	{
 		if !(_x in _group) then {
 			_x action ["eject",rv_selected];
-			systemChat format [localize "STR_RV_EJECT_PLAYER",name _x];
+			systemChat format[localize "STR_CL_RV_EJECT_PLAYER",name _x];
 		};
 	} forEach (crew rv_selected);
 };
 
 if (_option == 2) then {
-	systemChat format [localize "STR_RV_ENGINE",if (isEngineOn rv_selected) then {localize "strwfoff"} else {localize "strwfon"},_displayName];
+	systemChat format[localize "STR_CL_RV_ENGINE",if (isEngineOn rv_selected) then {localize "strwfoff"} else {localize "strwfon"},_displayName];
 	if (isEngineOn rv_selected) then {
 		if (rv_selected isKindOf "Helicopter") then { // This is needed because dayz_engineSwitch won't turn off the engine for a helicopter.
 			_fuel = fuel rv_selected;
@@ -117,7 +117,7 @@ if (_option == 2) then {
 };
 
 if (_option == 3) then {
-	systemChat format [localize "STR_BLD_UNLOCKED",_displayName];
+	systemChat format[localize "STR_BLD_UNLOCKED",_displayName];
 	PVDZE_veh_Lock = [rv_selected,false];
 	_time = diag_tickTime;
 
@@ -130,7 +130,7 @@ if (_option == 3) then {
 };
 
 if (_option == 4) then {
-	systemChat format [localize "STR_EPOCH_PLAYER_117",_displayName];
+	systemChat format[localize "STR_EPOCH_PLAYER_117",_displayName];
 	PVDZE_veh_Lock = [rv_selected,true];
 	_time = diag_tickTime;
 
@@ -145,11 +145,11 @@ if (_option == 4) then {
 if (_option == 5) then {
 	if !(rv_selected getVariable["vehicleLights",false]) then {
 		player action ["lightOn", rv_selected];
-		systemChat format [localize "STR_RV_LIGHTS",localize "strwfon",_vehicleType];
+		systemChat format[localize "STR_CL_RV_LIGHTS",localize "strwfon",_vehicleType];
 		rv_selected setVariable ["vehicleLights",true,true];
 	} else {
 		player action ["lightOff", rv_selected];
-		systemChat format [localize "STR_RV_LIGHTS",localize "strwfoff",_vehicleType];
+		systemChat format[localize "STR_CL_RV_LIGHTS",localize "strwfoff",_vehicleType];
 		rv_selected setVariable ["vehicleLights",false,true];
 	};
 };
