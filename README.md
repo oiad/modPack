@@ -36,7 +36,7 @@ All my mods in one place, tested and working by salival
 	
 # Install:
 
-By default the trader files are in Briefcase format and single currency is turned off. To enable coins please see this option: [Enabling coins](https://github.com/oiad/modPack#zscglobal-banking)
+By default the trader files are in Briefcase format and single currency is turned off. To enable coins please see this option: [Enabling coins](https://github.com/oiad/modPack#enabling-zscglobal-banking)
 
 # Mission folder install:
 
@@ -93,15 +93,16 @@ By default the trader files are in Briefcase format and single currency is turne
 
 1. If you are only allowed access to your main epoch database from your hosting provider, you can import the <code>SQL\virtualGarage.sql</code> file without editing it.
 
-2. If you want to have an external virtual garage database you will need to edit <code>SQL\virtualGarage.sql</code> and uncomment the following lines:
-	```sql
-	-- CREATE DATABASE IF NOT EXISTS `extdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
-	-- USE `extdb`;
-	```
+2. Open your HiveExt.ini and edit the [Objects] section, add or modify the following code to this section. If needed configure the [ObjectDB] section for external object database settings
 
-	This will create a seperate database called extDB (useful if you have a couple of servers using the same virtual garage database) FWIW: I had to run this import twice for it to work correctly, it only created the external database the first time, the second time I had to run it to create the table.
-
-3. You will need to edit your <code>@extDB\extdb-conf.ini</code> to suit your database settings!
+```
+; Table name for the virtual garage data to be stored in, default table is 'garage'
+;VGTable = garage
+; Days for a stored vehicle to be cleaned up after, if set to -1 this feature is disabled. Default 35 days
+;CleanupVehStoredDays = 35
+; Log object cleanup DELETE statements (per object), including virtual garage. Default is false
+;LogObjectCleanup = false
+```
 
 # infiSTAR install:
 
