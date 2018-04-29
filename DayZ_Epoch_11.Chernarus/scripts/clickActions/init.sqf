@@ -3,7 +3,7 @@ private "_build";
 _build = 3;
 
 if (isNil "DZE_CLICK_ACTIONS_BUILD") then {
-	diag_log text "CLICK ACTIONS: loading...";
+	diag_log "CLICK ACTIONS: loading...";
 	call compile preprocessFileLineNumbers "scripts\clickActions\config.sqf";
 	DZE_CLICK_ACTIONS_BUILD = _build;
 } else {
