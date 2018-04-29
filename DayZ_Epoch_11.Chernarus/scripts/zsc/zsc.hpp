@@ -30,7 +30,7 @@ class GivePlayerDialog
 		class CashTitle5 : ZSC_RscStructuredText
 		{
 			idc = 2710;
-			text = $STR_ZSC_YOU;
+			text = $STR_CL_ZSC_YOU;
 			colorText[] = {0.8784,0.8471,0.651,1};
 			x = 0.39;
 			y = 0.26;
@@ -70,7 +70,7 @@ class GivePlayerDialog
 		class DepositButton2 : ZSC_RscButtonMenu 
 		{
 			idc = -1;
-			text = $STR_ZSC_GIVE;
+			text = $STR_CL_ZSC_GIVE;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
 			onButtonClick = "[(ctrlText 14000)] spawn GivePlayerAmount; closeDialog 0;";
 			colorText[] = {0.8784,0.8471,0.651,1};
@@ -133,7 +133,7 @@ class BankDialog
 		class CashTitle : ZSC_RscText
 		{
 			idc = 2701;
-			text = $STR_ZSC_STORAGE;
+			text = $STR_CL_ZSC_STORAGE;
 			colorText[] = {0.8784,0.8471,0.651,1};
 			x = 0.36;
 			y = 0.26;
@@ -166,7 +166,7 @@ class BankDialog
 		class Title : ZSC_RscTitle {
 			colorBackground[] = {0, 0, 0, 0};
 			idc = -1;
-			text = $STR_ZSC_STORAGE;
+			text = $STR_CL_ZSC_STORAGE;
 			colorText[] = {1,1,1,1};
 			x = 0.35;
 			y = 0.2;
@@ -177,7 +177,7 @@ class BankDialog
 		class WithdrawButton : ZSC_RscButtonMenu 
 		{
 			idc = -1;
-			text = $STR_ZSC_WITHDRAW;
+			text = $STR_CL_ZSC_WITHDRAW;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
 			onButtonClick = "[(ctrlText 2702)] spawn BankDialogWithdrawAmount; closeDialog 0;";
 			colorText[] = {0.8784,0.8471,0.651,1};
@@ -190,7 +190,7 @@ class BankDialog
 		class DepositButton : ZSC_RscButtonMenu 
 		{
 			idc = -1;
-			text = $STR_ZSC_DEPOSIT;
+			text = $STR_CL_ZSC_DEPOSIT;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
 			onButtonClick =  "[(ctrlText 2702)] spawn BankDialogDepositAmount; closeDialog 0;";
 			colorText[] = {0.8784,0.8471,0.651,1};
@@ -203,7 +203,7 @@ class BankDialog
 		class CashTitle3 : ZSC_RscStructuredText
 		{
 			idc = 2703;
-			text = $STR_ZSC_YOU;
+			text = $STR_CL_ZSC_YOU;
 			colorText[] = {0.8784,0.8471,0.651,1};
 			x = 0.36;
 			y = 0.58;
@@ -264,7 +264,7 @@ class ATMDialog {
 	class Controls {
 		class CashTitle : ZSC_RscStructuredText {
 			idc = 3701;
-			text = $STR_ZSC_GLOBAL_BANK;
+			text = $STR_CL_ZSC_GLOBAL_BANK;
 			colorText[] = {0.8784,0.8471,0.651,1};
 			x = 0.39;
 			y = 0.26;
@@ -295,7 +295,7 @@ class ATMDialog {
 		class Title : ZSC_RscTitle {
 			colorBackground[] = {0, 0, 0, 0};
 			idc = -1;
-			text = $STR_ZSC_GLOBAL_BANKING;
+			text = $STR_CL_ZSC_GLOBAL_BANKING;
 			colorText[] = {1,1,1,1};
 			x = 0.35;
 			y = 0.2;
@@ -305,7 +305,7 @@ class ATMDialog {
 
 		class WithdrawButton : ZSC_RscButtonMenu {
 			idc = -1;
-			text = $STR_ZSC_WITHDRAW;
+			text = $STR_CL_ZSC_WITHDRAW;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
 			onButtonClick = "[(ctrlText 3702)] spawn AtmDialogWithdrawAmount; closeDialog 0;";
 			colorText[] = {0.8784,0.8471,0.651,1};
@@ -317,7 +317,7 @@ class ATMDialog {
 
 		class DepositButton : ZSC_RscButtonMenu {
 			idc = -1;
-			text = $STR_ZSC_DEPOSIT;
+			text = $STR_CL_ZSC_DEPOSIT;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
 			onButtonClick =  "[(ctrlText 3702)] spawn AtmDialogDepositAmount; closeDialog 0;";
 			colorText[] = {0.8784,0.8471,0.651,1};
@@ -329,7 +329,7 @@ class ATMDialog {
 
 		class CashTitle3 : ZSC_RscStructuredText {
 			idc = 3703;
-			text = $STR_ZSC_YOU;
+			text = $STR_CL_ZSC_YOU;
 			colorText[] = {0.8784,0.8471,0.651,1};
 			x = 0.39;
 			y = 0.58;

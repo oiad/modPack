@@ -11,7 +11,7 @@ _typeOf = typeOf ZSC_CurrentStorage;
 if !(_typeOf in DZE_MoneyStorageClasses) exitWith {
 	dayz_actionInProgress = false;
 	player setVariable["isBusy",false,true];
-	format [localize "STR_ZSC_BANKING_NOT_AVAIL",_typeOf] call dayz_rollingMessages;
+	format[localize "STR_CL_ZSC_BANKING_NOT_AVAIL",_typeOf] call dayz_rollingMessages;
 };
 
 _playerNear = {isPlayer _x} count ((getPosATL cursortarget) nearEntities ["CAManBase", 10]) > 1;
@@ -25,7 +25,7 @@ _isBusy = ZSC_CurrentStorage getVariable["isBusy",false];
 if (_isBusy) exitwith {
 	dayz_actionInProgress = false;
 	player setVariable["isBusy",false,true];
-	format [localize "STR_ZSC_BANKING_IN_USE",_typeOf] call dayz_rollingMessages;
+	format[localize "STR_CL_ZSC_BANKING_IN_USE",_typeOf] call dayz_rollingMessages;
 };
 
 ZSC_CurrentStorage setVariable["isBusy",true,true];
