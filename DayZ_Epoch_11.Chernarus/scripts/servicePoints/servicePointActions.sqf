@@ -2,7 +2,7 @@
 // Rewritten for single currency, gems, briefcase support and 1.0.6 epoch compatibility by salival - https://github.com/oiad/
 // Requires DayZ Epoch 1.0.6 for gem support.
 
-private ["_vehicle","_costs","_fuel","_magazineCount","_weapon","_type","_name","_weaponType","_weaponName","_turret","_magazines","_ammo","_textMissing","_pos","_message","_action","_partName","_damage","_selection","_strH","_disabled","_amount","_enoughMoney","_moneyInfo","_wealth","_success","_reason"];
+private ["_vehicle","_costs","_fuel","_magazineCount","_weapon","_type","_name","_weaponType","_weaponName","_turret","_magazines","_ammo","_textMissing","_pos","_message","_action","_damage","_selection","_strH","_disabled","_amount","_enoughMoney","_moneyInfo","_wealth","_success","_reason","_cmpt"];
 
 _vehicle = _this select 0;
 
@@ -23,13 +23,14 @@ if (_action == "rearm") then {
 	
 	_weaponType = _weapon select 0;
 	_weaponName = _weapon select 1;
+	_turret = _weapon select 2;
 };
 
 if (typeName _amount == "STRING") then {
 	if (_amount == (localize "str_temp_param_disabled")) then {
-		if (_action == "rearm") then {_reason = format[localize "STR_SP_UNABLE_REARM",_weaponName]; _disabled = true};
-		if (_action == "repair") then {_reason = format[localize "STR_SP_UNABLE_REPAIR",_name]; _disabled = true};
-		if (_action == "refuel") then {_reason = format[localize "STR_SP_UNABLE_REFUEL",_name]; _disabled = true};
+		if (_action == "rearm") then {_reason = format[localize "STR_CL_SP_UNABLE_REARM",_weaponName]; _disabled = true};
+		if (_action == "repair") then {_reason = format[localize "STR_CL_SP_UNABLE_REPAIR",_name]; _disabled = true};
+		if (_action == "refuel") then {_reason = format[localize "STR_CL_SP_UNABLE_REFUEL",_name]; _disabled = true};
 	};
 	if (_amount == (localize "strwffree")) then {_amount = 0};
 };
@@ -60,25 +61,23 @@ if (_enoughMoney) then {
 			player setVariable[Z_MoneyVariable,(_wealth - _amount),true];
 		};
 		[player,50,true,getPosATL player] spawn player_alertZombies;
+		_vehicle engineOn false;
 		if (_action == "refuel") then {
-			[player,50,true,getPosATL player] spawn player_alertZombies;
-			_vehicle engineOn false;
-			[format[localize "STR_SP_REFUELING",_name],1] call dayz_rollingMessages;
+			[format[localize "STR_CL_SP_REFUELING",_name],1] call dayz_rollingMessages;
 			[_vehicle,"refuel",0,false] call dayz_zombieSpeak;
 
 			while {vehicle player == _vehicle} do {
-				if ([0,0,0] distance (velocity _vehicle) > 1) exitWith {[format[localize "STR_SP_REFUELING_STOPPED",_name],1] call dayz_rollingMessages};
+				if ([0,0,0] distance (velocity _vehicle) > 1) exitWith {[format[localize "STR_CL_SP_REFUELING_STOPPED",_name],1] call dayz_rollingMessages};
 				_fuel = (fuel _vehicle) + ((_this select 3) select 3);
 				if (_fuel > 0.99) exitWith {
 					_vehicle setFuel 1;
-					[format[localize "STR_SP_REFUEL_OK",_name],1] call dayz_rollingMessages;
+					[format[localize "STR_CL_SP_REFUEL_OK",_name],1] call dayz_rollingMessages;
 				};
 				_vehicle setFuel _fuel;
 				uiSleep ((_this select 3) select 2);
 			};
 		};
 		if (_action == "repair") then {
-			_vehicle engineOn false;
 			[_vehicle,"repair",0,false] call dayz_zombieSpeak;
 
 			_hitpoints = _vehicle call vehicle_getHitpoints;
@@ -86,16 +85,16 @@ if (_enoughMoney) then {
 			{
 				if ((vehicle player != _vehicle) || {[0,0,0] distance (velocity _vehicle) > 1}) exitWith {
 					_allRepaired = false;
-					[format[localize "STR_SP_REPAIRING_STOPPED",_name],1] call dayz_rollingMessages;
+					[format[localize "STR_CL_SP_REPAIRING_STOPPED",_name],1] call dayz_rollingMessages;
 				};
 				_damage = [_vehicle,_x] call object_getHit;
 				if (_damage > 0) then {
-					_partName = toArray _x;
-					_partName set [0,20];
-					_partName set [1,45];
-					_partName set [2,20];
-					_partName = toString _partName;
-					[format [localize "STR_SP_REPAIRING",_partName],1] call dayz_rollingMessages;
+					_cmpt = [];
+					{
+						if (_forEachIndex > 2) then {_cmpt set [count _cmpt,_x]};
+					} forEach toArray (_x);
+					_cmpt = toString _cmpt;
+					[format[localize "STR_CL_SP_REPAIRING",_cmpt],1] call dayz_rollingMessages;
 					_selection = getText(configFile >> "cfgVehicles" >> _type >> "HitPoints" >> _x >> "name");
 					_strH = "hit_" + (_selection);
 					_vehicle setHit[_selection,0];
@@ -109,18 +108,17 @@ if (_enoughMoney) then {
 			if (_allRepaired) then {
 				_vehicle setDamage 0;
 				_vehicle setVelocity [0,0,1];
-				[format[localize "STR_SP_REPAIR_OK",_name],1] call dayz_rollingMessages;
+				[format[localize "STR_CL_SP_REPAIR_OK",_name],1] call dayz_rollingMessages;
 			};
 		};
 
 		if (_action == "rearm") then {
-			_turret = _weapon select 2;
 			_magazines = getArray (configFile >> "CfgWeapons" >> _weaponType >> "magazines");
 			_ammo = _magazines select 0;
 
 			for "_i" from 1 to _magazineCount do {_vehicle addMagazineTurret [_ammo,_turret];};
 
-			[format[localize "STR_SP_REARMED",_weaponName,_name],1] call dayz_rollingMessages;
+			[format[localize "STR_CL_SP_REARMED",_weaponName,_name],1] call dayz_rollingMessages;
 		};
 		call player_forceSave;
 	} else {
@@ -129,8 +127,8 @@ if (_enoughMoney) then {
 } else {
 	_itemText = if (Z_SingleCurrency) then {CurrencyName} else {[_amount,true] call z_calcCurrency};
 	if (Z_SingleCurrency) then {
-		systemChat format [localize "STR_SP_FAIL_COINS",[_amount] call BIS_fnc_numberText,_itemText,_action,_name];
+		systemChat format[localize "STR_CL_SP_FAIL_COINS",[_amount] call BIS_fnc_numberText,_itemText,_action,_name];
 	} else {
-		systemChat format [localize "STR_SP_FAIL_BRIEFCASES",_itemText,_action,_name];
+		systemChat format[localize "STR_CL_SP_FAIL_BRIEFCASES",_itemText,_action,_name];
 	};
 };

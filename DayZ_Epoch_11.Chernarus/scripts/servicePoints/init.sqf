@@ -31,8 +31,6 @@
 
 private ["_folder","_servicePointClasses","_maxDistance","_actionTitleFormat","_actionCostsFormat","_message","_messageShown","_refuel_enable","_refuel_costs","_refuel_updateInterval","_refuel_amount","_repair_enable","_repair_costs","_repair_repairTime","_rearm_enable","_rearm_defaultcost","_rearm_costs","_rearm_magazineCount","_lastVehicle","_lastRole","_fnc_removeActions","_fnc_getCostsWep","_fnc_getCostsWep","_fnc_actionTitle","_fnc_isArmed","_fnc_getWeapons","_rearm_ignore","_cycleTime","_servicePoints","_vehicle","_role","_costs","_actionTitle","_weapons","_weaponName","_disabledText","_freeText"];
 
-// ---------------- CONFIG START ----------------
-
 diag_log "Service Points: loading config...";
 
 // general settings
@@ -41,10 +39,10 @@ _servicePointClasses = ["Map_A_FuelStation_Feed","Land_A_FuelStation_Feed","Fuel
 _maxDistance = 50; // maximum distance from a service point for the options to be shown
 _actionTitleFormat = "%1 (%2)"; // text of the vehicle menu, %1 = action name (Refuel, Repair, Rearm), %2 = costs (see format below)
 _actionCostsFormat = "%2 %1"; // %1 = item name, %2 = item count
-_message = localize "STR_SP_MESSAGE"; // This is translated from your stringtable.xml in your mission folder root. Set to "" to disable
+_message = localize "STR_CL_SP_MESSAGE"; // This is translated from your stringtable.xml in your mission folder root. Set to "" to disable
 _cycleTime = 5; // Time in sections for how often the action menu will be refreshed and how often it will search for a nearby fuel station (setting this too low can make a lot of lag)
-_disabledText = (localize "str_temp_param_disabled");
-_freeText = (localize "strwffree");
+_disabledText = (localize "str_temp_param_disabled"); // Disabled text to show up when items are disabled, DO NOT CHANGE.
+_freeText = (localize "strwffree"); // Free text to show up when items are free, DO NOT CHANGE.
 
 // refuel settings
 _refuel_enable = true; // enable or disable the refuel option
@@ -78,17 +76,76 @@ _rearm_ignore = [(localize "str_dn_horn"),(localize "str_dn_laser_designator")];
 _rearm_costs = [
 	[(localize "str_mn_40rnd_grad"),_disabledText], // BM-21 Grad is disabled (ammo is broken)
 	[(localize "str_dn_flarelauncher"),2000], // Flares
-	[(localize "str_dn_m240"),5000], // M240
+	[(localize "str_ep1_dn_smokelauncher"),2000], // Smokes
 	[(localize "str_dn_pk"),5000], // PKM
 	[(localize "str_dn_pkt"),5000], // PKT
 	[(localize "str_sn_m134"),5000], // M134
-	[(localize "str_dn_m2_mg"),5000], // M2
-	[(localize "str_dn_mk19"),5000], // MK19
 	[(localize "str_dn_ags30"),5000], // AGS-30
-	[(localize "str_dn_dshkm"),5000] // DSHKM
-];
+	[(localize "str_dn_dshkm"),5000], // DSHKM
+	[(localize "str_DN_VIKHR_CCP"),5000], // Vikhr 9A4172
+	[(localize "str_baf_baf_l94a10"),5000], // L94A1 Chain Gun
+	[(localize "str_baf_crv70"),5000], // CRV7
+	[(localize "str_baf_ctws0"),5000], // CTWS
+	[(localize "str_baf_m621_manual0"),5000], // M621
+	[(localize "str_dn_2a38m"),5000], // 2A38M Gun
+	[(localize "str_dn_2a42"),5000], // 2A42
+	[(localize "str_dn_2a46m"),5000], // 2A46M Cannon
+	[(localize "str_dn_2a46m_rocket"),5000], // 9M119M Refleks rocket
+	[(localize "str_dn_2a70"),5000], // 2A70 100mm
+	[(localize "str_dn_2a70_rocket"),5000], // 9M117M1 Arkan
+	[(localize "str_dn_2a72"),5000], // 2A72 30mm
+	[(localize "str_dn_80mmlauncher_burst"),5000], // S-8
+	[(localize "str_dn_9m311laucher"),5000], // Tunguska 9M311
+	[(localize "str_dn_ags17"),5000], // AGS-17
+	[(localize "str_dn_d81"),5000], // D-81
+	[(localize "str_dn_dt_veh"),5000], // DT
+	[(localize "str_dn_hellfire"),5000], // AGM-114 Hellfire
+	[(localize "str_dn_kord"),5000], // KORD
+	[(localize "str_dn_m197"),5000], // M197
+	[(localize "str_dn_m240"),5000], // M240
+	[(localize "str_dn_m242"),5000], // M242
+	[(localize "str_dn_m256"),5000], // M256
+	[(localize "str_dn_sidewinderlaucher"),5000], // AIM-9L Sidewinder
+	[(localize "str_dn_zis_s_53"),5000], // ZiS-S-53
+	[(localize "str_ep1_dn_57mmlauncher"),5000], // S-5
+	[(localize "str_ep1_dn_azp85"),5000], // AZP-23
+	[(localize "str_ep1_dn_ffarlauncher"),5000], // Hydra
+	[(localize "str_ep1_dn_m2"),5000], // M2 Machinegun
+	[(localize "str_ep1_dn_m230"),5000], // M230
+	[(localize "str_ep1_dn_m32_ep1"),5000], // M32
+	[(localize "str_ep1_dn_mk19"),5000], // Mk19
+	[(localize "str_ep1_dn_yakb"),5000], // Yak-B
+	[(localize "str_mn_at2_mi24d"),5000], // Falanga 3M11
+	[(localize "str_mn_at5_bmp2"),5000], // Konkurs 9M113
+	[(localize "str_mn_stinger"),5000], // FIM-92F Stinger
+	[(localize "str_mn_12rnd_mlrs"),5000], // MLRS
+	[(localize "str_baf_baf_l2a10"),5000], // L111A1
+	[(localize "STR_DN_D10_CCP"),5000], // D-10
+	[(localize "str_dn_tow"),5000], // M220 TOW
+	[(localize "str_dn_zu23"),5000], // ZU-23
+	[(localize "str_dn_kpvt"),5000], // KPVT
+	[(localize "str_dn_m3p"),5000], // M3P
+	[(localize "str_dn_spg9"),5000], // SPG-9
+	[(localize "str_dn_gau8"),5000], // GAU-8
+	[(localize "str_dn_maverick"),5000], // AGM-65 Maverick
+	[(localize "str_dn_gbu12"),5000], // GBU-12
+	[(localize "str_dn_gau12"),5000], // GAU-12
+	[(localize "STR_DN_KH29_CCP"),5000], // Kh-29L
+	[(localize "str_dn_r73"),5000], // R-73
+	[(localize "str_mn_fab250"),5000], // FAB-250
+	[(localize "str_dn_gsh301"),5000], // GSh-301
+	[(localize "str_mn_23mm_gsh23l"),5000], // GSh-23L
+	[(localize "str_sn_grenade"),5000], // Grenade
+	[(localize "str_mn_at9_mi24p"),5000], // Ataka-V 9M120
+	[(localize "str_mn_at6_mi24v"),5000], // Shturm 9K114
 
-// ---------------- CONFIG END ----------------
+	["SGMT",5000], // SGMT no localization available
+	["M68",5000], // M68 no localization available
+	["GAU-22",5000], // GAU-22 no localization available
+	["GSh-30",5000], // GSh-30 no localization available
+	["M60",5000], // M60 no localization available
+	["GSh-30K",5000] // GSh-30K no localization available
+];
 
 _lastVehicle = objNull;
 _lastRole = [];
