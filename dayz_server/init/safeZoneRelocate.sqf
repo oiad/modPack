@@ -2,7 +2,7 @@
 	Safe Zone Relocate by salival (https://github.com/oiad)
 */
 
-private ["_customPosition","_customRadius","_maxDist","_maxDamage","_nearVehicles","_objDist","_position","_safeZonePos","_safeZoneRadius","_useCustomPosition","_unlock"];
+private ["_customPosition","_customRadius","_maxDist","_maxDamage","_message","_nearVehicles","_objDist","_position","_safeZonePos","_safeZoneRadius","_useCustomPosition","_unlock"];
 
 _useCustomPosition = false; // Enable a custom position to move vehicles to (i.e a junk yard)
 _customPosition = [6942.64,15121.6,0]; // Position for vehicles to be moved to if _useCustomPosition = true;
@@ -18,9 +18,10 @@ _maxDamage = 0.75; // Vehicles above this amount of damage will be deleted
 	_nearVehicles = _safeZonePos nearEntities [["Air","LandVehicle","Ship"],_safeZoneRadius];
 	{
 		if (damage _x > _maxDamage) then {
+			_message = format ["[SAFEZONE] %1 was deleted from the server for being too damaged before relocate: @%2 %3",typeOf _x,mapGridPosition _x,getPosATL _x];
+			diag_log _message;
 			deleteVehicle _x;
-			[_x getVariable["ObjectID","0"],_x getVariable["ObjectUID","0"],"safeZoneRelocate"] call server_deleteObj;
-			diag_log format ["[SAFEZONE] %1 was deleted from the server for being too damaged before relocate: @%2 %3",typeOf _x,mapGridPosition _x,getPosATL _x];
+			[_x getVariable["ObjectID","0"],_x getVariable["ObjectUID","0"],"safeZoneRelocate",typeOf _x] call server_deleteObjDirect;
 		} else {
 			if (_useCustomPosition) then {
 				_position = [_customPosition,_customRadius,_maxDist,_objDist,1,0,0,[]] call BIS_fnc_findSafePos;
@@ -31,7 +32,8 @@ _maxDamage = 0.75; // Vehicles above this amount of damage will be deleted
 			[_x,"position"] call server_updateObject;
 			if (_unlock && {locked _x}) then {_x setVehicleLock "UNLOCKED"};
 
-			diag_log format ["[SAFEZONE] %1 was moved out of a safe zone to: @%2 %3",typeOf _x,mapGridPosition _position,_position];
+			_message = format ["[SAFEZONE] %1 was moved out of a safe zone to: @%2 %3",typeOf _x,mapGridPosition _position,_position];
+			diag_log _message;
 		};
 	} forEach _nearVehicles;
 } forEach DZE_safeZonePosArray;
