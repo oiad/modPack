@@ -1,82 +1,52 @@
-private ["_worldSpace","_player","_id","_query","_return","_class","_characterID","_inventory","_hitpoints","_fuel","_damage","_dir","_location","_uid","_key","_query1","_colour","_colour2","_result"];
+private ["_worldSpace","_player","_serverKey","_id","_query","_return","_class","_characterID","_inventory","_hitpoints","_fuel","_damage","_dir","_location","_uid","_key","_query1","_colour","_colour2","_result","_VGobjID","_message"];
 
 _worldSpace = _this select 0;
 _player = _this select 1;
 _id = _this select 2;
-
-_query = format["SELECT classname, CharacterID, Inventory, Hitpoints, Fuel, Damage, Colour, Colour2 FROM garage WHERE ID='%1'",_id];
-
-_result = [_query,2,true] call fn_asyncCall;
-_return = _result select 0;
-
-_class = _return select 0;
-_characterID = _return select 1;
-_inventory = _return select 2;
-_hitpoints = _return select 3;
-_fuel = _return select 4;
-_damage = _return select 5;
-_colour = _return select 6;
-_colour2 = _return select 7;
-
 _dir = _worldSpace select 0;
 _location = _worldSpace select 1;
-
-_worldSpace = [_dir,_location,_colour,_colour2];
-
+_worldSpace = [_dir,_location];
 _uid = _worldSpace call dayz_objectUID2;
+_key = str formatText["CHILD:801:%1:%2:%3:",_id,_worldSpace,_uid];
 
-_key = format["CHILD:308:%1:%2:%3:%4:%5:%6:%7:%8:%9:",dayZ_instance,_class,_damage,_characterID,_worldSpace,_inventory,_hitpoints,_fuel,_uid];
-_key call server_hiveWrite;
+_result = _key call server_hiveReadWrite;
+_outcome = _result select 0;
+if (_outcome != "PASS") exitWith {diag_log("HIVE VIRTUAL GARAGE SPAWN VEHICLE FAILED TO EXECUTE: " + _key);};
+_class = _result select 1;
+_characterID = _result select 2;
+_inventory = _result select 3;
+_hitpoints = _result select 4;
+_fuel = _result select 5;
+_damage = _result select 6;
+_colour = _result select 7;
+_colour2 = _result select 8;
+_serverKey = _result select 9;
+_VG_ObjID = _result select 10;
+_clientID = owner _player;
 
-_query1 = format["DELETE FROM garage WHERE ID='%1'",_id];
+if (_VG_ObjID in vg_alreadySpawned) exitWith {
+	diag_log format["VG ERROR: Vehicle with VGObjID = %1 has already been spawned and will not be spawned again. PlayerUID: %2", _VG_ObjID, (getPlayerUID _player)];
+};
 
-[_query1,1,true] call fn_asyncCall;
+_key = format["CHILD:388:%1:",_uid];
 
-// Switched to spawn so we can wait a bit for the ID
-[_uid,_characterID,_class,_dir,_location,_inventory,_hitpoints,_fuel,_damage,_colour,_colour2,_player] spawn {
-   private ["_object","_uid","_characterID","_class","_inventory","_hitpoints","_fuel","_damage","_done","_retry","_key","_result","_outcome","_oid","_selection","_dam","_colour","_colour2","_clrinit","_clrinit2","_player","_clientID"];
+#ifdef OBJECT_DEBUG
+diag_log ("HIVE: WRITE: "+ str(_key));
+#endif
 
-	_uid = _this select 0;
-	_characterID = _this select 1;
-	_class = _this select 2;
-	//_dir = _this select 3;
-	_location = _this select 4;
-	_inventory = _this select 5;
-	_hitpoints = _this select 6;
-	_fuel = _this select 7;
-	_damage = _this select 8;
-	_colour = _this select 9;
-	_colour2 = _this select 10;
-	_player = _this select 11;
-	_clientID = owner _player;
+_result = _key call server_hiveReadWrite;
+_outcome = _result select 0;
 
-	_done = false;
-	_retry = 0;
-	// TODO: Needs major overhaul for 1.1
-	while {_retry < 10} do {
-		uiSleep 1;
-		// GET DB ID
-		_key = format["CHILD:388:%1:",_uid];
-		#ifdef OBJECT_DEBUG
-		diag_log ("HIVE: WRITE: "+ str(_key));
-		#endif
-		_result = _key call server_hiveReadWrite;
-		_outcome = _result select 0;
-		if (_outcome == "PASS") then {
-			_oid = _result select 1;
-			#ifdef OBJECT_DEBUG
-			diag_log("CUSTOM: Selected " + str(_oid));
-			#endif
-			_done = true;
-			_retry = 100;
-		} else {
-			#ifdef OBJECT_DEBUG
-			diag_log("CUSTOM: trying again to get id for: " + str(_uid));
-			#endif
-			_done = false;
-			_retry = _retry + 1;
-		};
-	};
+if (_outcome != "PASS") then {
+	diag_log("CUSTOM: failed to get id for : " + str(_uid));
+} else {
+	_VG_ObjID = (toString (18 call VG_RandomizeMyKey)); //new ID
+	vg_alreadySpawned set [(count vg_alreadySpawned), _VG_ObjID];
+	_oid = _result select 1;
+
+	#ifdef OBJECT_DEBUG
+	diag_log("CUSTOM: Selected " + str(_oid));
+	#endif
 
 	_object = _class createVehicle _location;
 	if (surfaceIsWater _location && {({_x != _object} count (_location nearEntities ["Ship",8])) == 0}) then {
@@ -87,7 +57,9 @@ _query1 = format["DELETE FROM garage WHERE ID='%1'",_id];
 
 	clearWeaponCargoGlobal _object;
 	clearMagazineCargoGlobal _object;
-	// _object setVehicleAmmo DZE_vehicleAmmo;
+	if (vg_clearAmmo && {vg_serverKey == _serverKey}) then {
+		_object call VG_ClearTurrets;
+	};
 
 	_object setFuel _fuel;
 	_object setDamage _damage;
@@ -96,6 +68,7 @@ _query1 = format["DELETE FROM garage WHERE ID='%1'",_id];
 
 	_object setVariable ["ObjectID", _oid, true];
 	_object setVariable ["lastUpdate",diag_tickTime];
+	_object setVariable ["VGObjectID",_VG_ObjID, false];
 
 	if (_colour != "0") then {
 		_object setVariable ["Colour",_colour,true];
@@ -126,7 +99,7 @@ _query1 = format["DELETE FROM garage WHERE ID='%1'",_id];
 	dayz_serverObjectMonitor set [count dayz_serverObjectMonitor,_object];
 
 	_object call fnc_veh_ResetEH;
-	{if (_class isKindOf _x) exitWith {_object disableTIEquipment true;}} count vg_disableThermal;
+	{if (_object isKindOf _x) exitWith {_object disableTIEquipment true;}} count vg_disableThermal;
 
 	PVDZE_veh_Init = _object;
 	publicVariable "PVDZE_veh_Init";
@@ -134,6 +107,7 @@ _query1 = format["DELETE FROM garage WHERE ID='%1'",_id];
 	PVDZE_spawnVehicleResult = _characterID;
 
 	if (!isNull _player) then {_clientID publicVariableClient "PVDZE_spawnVehicleResult";};
-
-	diag_log format["GARAGE: %1 (%2) retrieved %3 @%4 %5",if (alive _player) then {name _player} else {"DeadPlayer"},getPlayerUID _player,_class,mapGridPosition (getPosATL _player),getPosATL _player];
+	
+	_message = format["GARAGE: %1 (%2) retrieved %3 @%4 %5",if (alive _player) then {name _player} else {"DeadPlayer"},getPlayerUID _player,_class,mapGridPosition _player,getPosATL _player];
+	diag_log _message;
 };

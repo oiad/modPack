@@ -4,9 +4,8 @@ _player = _this select 0;
 _clientID = owner _player;
 _playerUID = if (count _this > 1) then {_this select 1} else {getPlayerUID _player};
 
-_query = format["SELECT id, classname, Inventory, CharacterID,DateStored FROM garage WHERE PlayerUID='%1' ORDER BY DisplayName",_playerUID];
-
-_result = [_query,2,true] call fn_asyncCall;
+_key = format["CHILD:800:%1:%2:",_playerUID,vg_sortColumn];
+_result = _key call server_hiveReadWrite;
 
 PVDZE_queryVehicleResult = _result;
 

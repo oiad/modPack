@@ -23,7 +23,6 @@ _currentWeapon = currentWeapon player;
 _magazinesPlayer = magazines player;
 _onLadder = (getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
 _canDo = (!r_drag_sqf && !r_player_unconscious && !_onLadder);
-//_canDrink = count nearestObjects [getPosATL player, ["Land_pumpa","Land_water_tank"], 2] > 0;
 _uid = getPlayerUID player;
 _nearLight = nearestObject [player,"LitObject"];
 _canPickLight = false;
@@ -876,9 +875,15 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 	};
 
 	if (_typeOfCursorTarget in vg_List) then {
-		_hasAccess = [player,_cursorTarget] call FNC_check_access;
-		if (s_garage_dialog < 0 && ((_hasAccess select 0) || (_hasAccess select 2) || (_hasAccess select 3) || (_hasAccess select 4) || (!isPlayer _cursorTarget && {_typeOfCursorTarget in vg_list}))) then {
-			s_garage_dialog = player addAction [localize "STR_VG_VIRTUAL_GARAGE","scripts\virtualGarage\virtualGarage.sqf",_cursorTarget,3,false,true];
+		if (s_garage_dialog < 0) then {
+			private ["_plotCheck","_isNearPlot"];
+			_hasAccess = [player,_cursorTarget] call FNC_check_access;
+			_plotCheck = [player, false] call FNC_find_plots;
+			_isNearPlot = ((_plotCheck select 1) > 0);
+
+			if ((_isNearPlot && ((_hasAccess select 0) || (_hasAccess select 2) || (_hasAccess select 3) || (_hasAccess select 4))) || {!_isNearPlot}) then {
+				s_garage_dialog = player addAction [format["<t color='#0059FF'>%1</t>",localize "STR_CL_VG_VIRTUAL_GARAGE"],"scripts\virtualGarage\virtualGarage.sqf",_cursorTarget,3,false,true];
+			};
 		};
 	} else {
 		player removeAction s_garage_dialog;
