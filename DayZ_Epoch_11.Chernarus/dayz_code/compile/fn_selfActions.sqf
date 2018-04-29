@@ -926,7 +926,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 		if (!_isButchered) then {
 			if ("ItemEtool" in _itemsPlayer) then {
 				if (s_player_bury_human < 0) then {
-					s_player_bury_human = player addAction ["<t color='#0096ff'>Bury Human</t>","scripts\buryActions.sqf",[_cursorTarget,"bury"],0,false,true];
+					s_player_bury_human = player addAction [format["<t color='#0059FF'>%1</t>",localize "STR_CL_BA_BURY"],"scripts\buryActions.sqf",[_cursorTarget,"bury"],0,false,true];
 				}
 			} else {
 				player removeAction s_player_bury_human;
@@ -934,7 +934,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 			};
 			if ({_x in ["ItemKnife","ItemKnife5","ItemKnife4","ItemKnife3","ItemKnife2","ItemKnife1"]} count _itemsPlayer > 0) then {
 				if (s_player_butcher_human < 0) then {
-					s_player_butcher_human = player addAction ["<t color='#0096ff'>Butcher Human</t>","scripts\buryActions.sqf",[_cursorTarget,"butcher"],0,false,true];
+					s_player_butcher_human = player addAction [format["<t color='#0059FF'>%1</t>",localize "STR_CL_BA_BUTCHER"],"scripts\buryActions.sqf",[_cursorTarget,"butcher"],0,false,true];
 				};
 			} else {
 				player removeAction s_player_butcher_human;

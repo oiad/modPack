@@ -2,7 +2,7 @@
 	Bury/Butcher body script by salival (https://github.com/oiad)
 */
 
-private ["_action","_backPackMag","_backPackWpn","_crate","_corpse","_cross","_gain","_humanity","_humanityAmount","_isBury","_grave","_name","_backPack","_position","_sound"];
+private ["_action","_backPackMag","_backPackWpn","_crate","_corpse","_cross","_gain","_humanity","_humanityAmount","_isBury","_grave","_name","_backPack","_position","_sound","_notOnRoad"];
 
 if (dayz_actionInProgress) exitWith {localize "str_player_actionslimit" call dayz_rollingMessages;};
 dayz_actionInProgress = true;
@@ -10,21 +10,26 @@ dayz_actionInProgress = true;
 _corpse = (_this select 3) select 0;
 _action = (_this select 3) select 1;
 
+_humanityAmount = 25; // Amount of humanity to gain or lose for burying/butchering a body.
+_notOnRoad = false; // Restrict burying/butchering on roads?
+
+if (isNull _corpse) exitWith {dayz_actionInProgress = false; systemChat "cursorTarget isNull!";};
+
 player removeAction s_player_bury_human;
 s_player_bury_human = -1;
 player removeAction s_player_butcher_human;
 s_player_butcher_human = -1;
 
-if (isNull _corpse) exitWith {dayz_actionInProgress = false; systemChat "cursorTarget isNull!";};
+_position = getPosATL _corpse;
+_isBury = _action == "bury";
+
+if (_notOnRoad && {isOnRoad _position}) exitWith {dayz_actionInProgress = false; format[localize "STR_CL_BA_ROAD",if (_isBury) then {localize "STR_CL_BA_BURY1"} else {"STR_CL_BA_BUTCHER1"}] call dayz_rollingMessages;};
 
 _finished = ["Medic",1] call fn_loopAction;
 if (!_finished) exitWith {dayz_actionInProgress = false;localize "str_epoch_player_26" call dayz_rollingMessages;};
 
-_humanityAmount = 25;
 _corpse setVariable["isBuried",true,true];
 
-_isBury = _action == "bury";
-_position = getPosATL _corpse;
 _backPack = typeOf (unitBackPack _corpse);
 
 _crate = createVehicle ["USOrdnanceBox_EP1",_position,[],0,"CAN_COLLIDE"];
@@ -69,9 +74,9 @@ deleteVehicle _corpse;
 
 if (_isBury) then {
 	if (_name != "unknown") then {
-		format["Rest in peace, %1...",_name] call dayz_rollingMessages;
+		format[localize "STR_CL_BA_RIP",_name] call dayz_rollingMessages;
 	} else {
-		"Rest in peace, unknown soldier...." call dayz_rollingMessages;
+		localize "STR_CL_BA_RIP_UNKNOWN" call dayz_rollingMessages;
 	};
 };
 
