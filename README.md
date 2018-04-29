@@ -5,17 +5,17 @@ All my mods in one place, tested and working by salival
 
 # Supported mods:
 
-* Bury Bodies by [@salival (repo here)](https://github.com/oiad/buryBodies)
-* Community Localizations by [@salival (repo here)](https://github.com/oiad/communityLocalizations)
-* Deploy Anything by [@salival (repo here)](https://github.com/oiad/DayZEpochDeployableBike)
-* Locate Vehicle by [@salival (repo here)](https://github.com/oiad/locateVehicle)
-* Garage Door Opener by [@salival (repo here)](https://github.com/oiad/garageDoorOpener)
-* Safe Zone Relocate by [@salival (repo here)](https://github.com/oiad/safeZoneRelocate)
-* Service Points by [@salival (repo here)](https://github.com/oiad/service_points)
-* Take Clothes by [@salival (repo here)](https://github.com/oiad/TakeClothes)
-* Virtual Garage by [@salival (repo here)](https://github.com/oiad/virtualGarage)
-* Vehicle Key Changer by [@salival (repo here)](https://github.com/oiad/vkc)
-* ZSC/Global Banking by [@salival (repo here)](https://github.com/oiad/ZSC)
+* Bury Bodies [(repo here)](https://github.com/oiad/buryBodies)
+* Community Localizations [(repo here)](https://github.com/oiad/communityLocalizations)
+* Deploy Anything [(repo here)](https://github.com/oiad/DayZEpochDeployableBike)
+* Locate Vehicle [(repo here)](https://github.com/oiad/locateVehicle)
+* Garage Door Opener [(repo here)](https://github.com/oiad/garageDoorOpener)
+* Safe Zone Relocate [(repo here)](https://github.com/oiad/safeZoneRelocate)
+* Service Points [(repo here)](https://github.com/oiad/service_points)
+* Take Clothes [(repo here)](https://github.com/oiad/TakeClothes)
+* Virtual Garage [(repo here)](https://github.com/oiad/virtualGarage)
+* Vehicle Key Changer [(repo here)](https://github.com/oiad/vkc)
+* ZSC/Global Banking [(repo here)](https://github.com/oiad/ZSC)
 
 # REPORTING ERRORS/PROBLEMS
 
