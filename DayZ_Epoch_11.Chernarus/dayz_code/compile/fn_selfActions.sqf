@@ -944,7 +944,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 		_clothesTaken = _cursorTarget getVariable["clothesTaken",false];
 		if (!_clothesTaken) then {
 			if (s_player_clothes < 0) then {
-				s_player_clothes = player addAction [format["<t color='#0096ff'>Take Clothes</t>"], "scripts\takeClothes.sqf",_cursorTarget, 0, false, true];
+				s_player_clothes = player addAction [format["<t color='#0059FF'>%1</t>",localize "STR_CL_TC_TAKE_CLOTHES"], "scripts\takeClothes.sqf",_cursorTarget, 0, false, true];
 			};
 		} else {
 			player removeAction s_player_clothes;
@@ -1168,13 +1168,13 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 	player removeAction s_garage_dialog;
 	s_garage_dialog = -1;
 
-	player removeAction s_player_clothes;
-	s_player_clothes = -1;
-
 	player removeAction s_player_bury_human;
 	s_player_bury_human = -1;
 	player removeAction s_player_butcher_human;
 	s_player_butcher_human = -1;
+
+	player removeAction s_player_clothes;
+	s_player_clothes = -1;
 };
 
 //Dog actions on player self

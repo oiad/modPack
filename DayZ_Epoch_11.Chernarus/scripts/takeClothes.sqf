@@ -34,17 +34,11 @@ switch (_itemNew) do {
 _itemNew = "Skin_" + _itemNew;
 _clothesTaken = _body getVariable["clothesTaken",false];
 
-if (_clothesTaken) exitWith {
-	"This Skin has already been taken!" call dayz_rollingMessages;
-	dayz_actionInProgress = false;
-};
+if (_clothesTaken) exitWith {dayz_actionInProgress = false; localize "STR_CL_TC_ALREADY_TAKEN" call dayz_rollingMessages;};
 
 _okSkin = isClass (configFile >> "CfgMagazines" >> _itemNew);
 
-if (!_okSkin) exitWith {
-	format ["Currently %1 is not supported by the take clothes script.",_skin] call dayz_rollingMessages;
-	dayz_actionInProgress = false;
-};
+if (!_okSkin) exitWith {dayz_actionInProgress = false; format[localize "STR_CL_TC_NOT_SUPPORTED",_skin] call dayz_rollingMessages;};
 
 _finished = ["Medic",1] call fn_loopAction;
 if (_finished) then {
@@ -52,9 +46,9 @@ if (_finished) then {
 	_result = [player,_itemNew] call BIS_fnc_invAdd;
 	if (_result) then {
 		_body setVariable["clothesTaken",true,true];
-		format["One %1 has been added to your inventory!",_itemNewName] call dayz_rollingMessages;
+		format[localize "STR_CL_TC_ADD_OK",_itemNewName] call dayz_rollingMessages;
 	} else {
-		format["You didn't have enough room to store a %1 :(",_itemNewName] call dayz_rollingMessages;
+		format[localize "STR_CL_TC_ADD_FAIL",_itemNewName] call dayz_rollingMessages;
 	};
 } else {
 	localize "str_epoch_player_26" call dayz_rollingMessages;
