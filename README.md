@@ -30,7 +30,6 @@ All my mods in one place, tested and working by salival
 * [Mission folder install](https://github.com/oiad/modPack#mission-folder-install)
 * [dayz_server install](https://github.com/oiad/modPack#dayz_server-folder-install)
 * [Enabling ZSC/global banking](https://github.com/oiad/modPack#enabling-zscglobal-banking)
-* [extDB install](https://github.com/oiad/modPack#extdb-install)
 * [mySQL database setup](https://github.com/oiad/modPack#mysql-database-setup)
 * [infiSTAR install](https://github.com/oiad/modPack#infistar-install)
 * [Battleye Filters](https://github.com/oiad/modPack#battleye-filters)
@@ -88,21 +87,6 @@ By default the trader files are in Briefcase format and single currency is turne
 	And delete or comment out this line:
 	```sqf
 	#include "\z\addons\dayz_code\Configs\CfgServerTrader\CfgServerTrader.hpp" // Standard briefcase trader files.
-	```
-
-# extDB install:
-
-1. Copy the <code>@extDB</code> folder to your main <code>Arma 2 Operation Arrowhead</code> folder (or where you host your server)
-
-2. Edit <code>@extDB\extdb-conf.ini</code> to suit your database settings, mainly the database name, username and password.
-
-3. Edit your server batch file or whatever loads your server to include <code>@extDB</code> in the -mod line, i.e for epoch:
-	```sqf
-	"-mod=@extDB;@DayZ_Epoch;@DayZ_Epoch_Server"
-	```
-	for overwatch:
-	```sqf
-	"-mod=@extDB;@DayzOverwatch;@DayZ_Epoch;@DayZ_Epoch_Server"
 	```
 
 # mysql database setup	:
