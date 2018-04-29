@@ -2,7 +2,7 @@
 	Garage door opener script by salival (https://github.com/oiad)
 */
 
-if (dayz_actionInProgress) exitWith {"You are already performing an action, wait for the current action to finish." call dayz_rollingMessages;};
+if (dayz_actionInProgress) exitWith {localize "str_player_actionslimit" call dayz_rollingMessages;};
 dayz_actionInProgress = true;
 
 private "_door";
@@ -15,10 +15,10 @@ if (isNull _door) exitWith {dayz_actionInProgress = false; systemChat "Selected 
 s_player_gdoor_opener_ctrl = 1;
 		
 if (_door animationPhase "Open_door" == 0) then {
-	systemChat "Opening door";
+	systemChat localize "STR_CL_GDO_DOOR_OPEN";
 	_door animate ["Open_door",1];
 } else {
-	systemChat "Closing door";
+	systemChat localize "STR_CL_GDO_DOOR_CLOSE";
 	_door animate ["Open_door",0];
 };
 
