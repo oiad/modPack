@@ -54,7 +54,7 @@ if (_playerNear) exitWith {call _exit; localize "str_pickup_limit_5" call dayz_r
 
 if (isNull vkc_cursorTarget) exitWith {call _exit; systemChat "cursorTarget isNull!";};
 
-if !(vkc_cursorTarget isKindOf "Air" || {vkc_cursorTarget isKindOf "LandVehicle"} || {vkc_cursorTarget isKindOf "Ship"}) exitWith {call _exit; localize "STR_VKC_FAIL_CURSOR" call dayz_rollingMessages;};
+if !(vkc_cursorTarget isKindOf "Air" || {vkc_cursorTarget isKindOf "LandVehicle"} || {vkc_cursorTarget isKindOf "Ship"}) exitWith {call _exit; localize "STR_CL_VKC_FAIL_CURSOR" call dayz_rollingMessages;};
 
 _vehicleID = vkc_cursorTarget getVariable ["ObjectID","0"];
 _vehicleUID = vkc_cursorTarget getVariable ["ObjectUID","0"];
@@ -62,7 +62,7 @@ _vehicleUID = vkc_cursorTarget getVariable ["ObjectUID","0"];
 _typeOf = typeOf vkc_cursorTarget;
 _name = getText(configFile >> "cfgVehicles" >> _typeOf >> "displayName");
 
-if ((_vehicleID == "0" && {_vehicleUID == "0"}) || {_vehicleID == "1" || _vehicleUID == "1"}) exitWith {call _exit; format [localize "STR_VKC_FAIL_SUPPORT",_name] call dayz_rollingMessages;};
+if ((_vehicleID == "0" && {_vehicleUID == "0"}) || {_vehicleID == "1" || _vehicleUID == "1"}) exitWith {call _exit; format[localize "STR_CL_VKC_FAIL_SUPPORT",_name] call dayz_rollingMessages;};
 
 if (_vehicleUID == "0") then {
 	_vehicleUID = "";
@@ -79,7 +79,7 @@ vkc_keyList = call epoch_tempKeys;
 
 if (vkc_action == "change") then {
 	_amount = vkc_changePrice;
-	_message = [localize "STR_VKC_CHANGE_MESSAGE_1",localize "STR_VKC_CHANGE_MESSAGE_2",localize "STR_VKC_CHANGE_MESSAGE_3"];
+	_message = [localize "STR_CL_VKC_CHANGE_MESSAGE_1",localize "STR_CL_VKC_CHANGE_MESSAGE_2",localize "STR_CL_VKC_CHANGE_MESSAGE_3"];
 	_foundPos = (vkc_keyList select 0) find _characterID;
 	if (_foundPos >= 0) then {
 		vkc_keyList set [0,(vkc_keyList select 0) - [(vkc_keyList select 0) select _foundPos]];
@@ -90,10 +90,10 @@ if (vkc_action == "change") then {
 	};
 } else {
 	_amount = vkc_claimPrice;
-	_message = [localize "STR_VKC_CLAIM_MESSAGE_1",localize "STR_VKC_CLAIM_MESSAGE_2",localize "STR_VKC_CLAIM_MESSAGE_3"];
+	_message = [localize "STR_CL_VKC_CLAIM_MESSAGE_1",localize "STR_CL_VKC_CLAIM_MESSAGE_2",localize "STR_CL_VKC_CLAIM_MESSAGE_3"];
 };
 
-if (count (vkc_keyList select 0) == 0) exitWith {systemChat localize "STR_VKC_FAIL_KEYS"; call _exit;};
+if (count (vkc_keyList select 0) == 0) exitWith {systemChat localize "STR_CL_VKC_FAIL_KEYS"; call _exit;};
 
 if (!isNil "sk_dualCurrency") then {if (z_singleCurrency) then {_amount = _amount * 10};};
 
@@ -133,21 +133,17 @@ if (Z_SingleCurrency) then {
 
 _success = if (Z_SingleCurrency) then {true} else {[player,_amount,_moneyInfo,true,0] call Z_payDefault};
 
-if (!_success && {_enoughMoney}) exitWith {call _exit;systemChat localize "STR_EPOCH_TRADE_GEAR_AND_BAG_FULL"}; // Not enough room in gear or bag to accept change
+if (!_success && {_enoughMoney}) exitWith {call _exit;systemChat localize "STR_EPOCH_TRADE_GEAR_AND_BAG_FULL"};
 
 if (_enoughMoney) then {
 	_success = if (Z_SingleCurrency) then {_amount <= _wealth} else {[player,_amount,_moneyInfo,false,0] call Z_payDefault};
 	if (_success) then {
-		if (Z_SingleCurrency) then {
-			player setVariable[Z_MoneyVariable,(_wealth - _amount),true];
-		};
+		if (Z_SingleCurrency) then {player setVariable[Z_MoneyVariable,(_wealth - _amount),true];};
 
 		vkc_cursorTarget setVehicleLock "LOCKED";
 		player playActionNow "Medic";
 
-		_position = getPosASL vkc_cursorTarget;
-
-		if !(surfaceIsWater _position) then {_position = ASLToATL _position;};
+		_position = [vkc_cursorTarget] call FNC_GetPos;
 
 		[_typeOf,objNull] call fn_waitForObject;
 		dze_waiting = nil;
@@ -155,12 +151,12 @@ if (_enoughMoney) then {
 		PVDZE_veh_Upgrade = [vkc_cursorTarget,[getDir vkc_cursorTarget,_position],_typeOf,false,vkc_charID,player,dayz_authKey,_message select 2];
 		publicVariableServer "PVDZE_veh_Upgrade";
 
-		{player reveal _x;} count (player nearEntities [["LandVehicle"],10]);
- 
+		localize "STR_CL_VKC_WAIT" call dayz_rollingMessages;
+
 		waitUntil {!isNil "dze_waiting"};
 		
 		if (dze_waiting == "fail") then {
-			systemChat format [localize "STR_VKC_FAIL_UPGRADE",_name];
+			systemChat format[localize "STR_CL_VKC_FAIL_UPGRADE",_name];
 			if (z_singleCurrency) then {
 				player setVariable[Z_MoneyVariable,_wealth,true];
 			} else {
@@ -168,13 +164,14 @@ if (_enoughMoney) then {
 				_success = [_amount,0,false,0,[],[],false] call Z_returnChange;
 			};
 		} else {
-			format [_message select 0,_name,vkc_keyName] call dayz_rollingMessages;
+			{player reveal _x;} count (player nearEntities [["LandVehicle"],10]);
+			[format[_message select 0,_name,vkc_keyName],1] call dayz_rollingMessages;
 		};
 	} else {
 		systemChat localize "STR_EPOCH_TRADE_DEBUG";
 	};
 } else {
-	systemChat format [localize "STR_VKC_FAIL_MONEY",_itemText,_message select 1,_name];
+	systemChat format[localize "STR_CL_VKC_FAIL_MONEY",_itemText,_message select 1,_name];
 };
 
 call _exit;

@@ -237,7 +237,7 @@ class vkc {
 
 		class Title : vkc_RscTitle {
 			idc = 4801;
-			text = $STR_VKC_TITLE;
+			text = $STR_CL_VKC_TITLE;
 			x = 0.1;
 			y = 0.2;
 			w = 0.8;
@@ -246,7 +246,7 @@ class vkc {
 
 		class VehicleInfoHeader : vkc_RscText {
 			idc = 4830;
-			text = $STR_VKC_INFO;
+			text = $STR_CL_VKC_INFO;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
 			x = 0.47; y = 0.26;
 			w = 0.42;
@@ -277,7 +277,7 @@ class vkc {
 
 		class VehicleTitleBox : vkc_RscText {
 			idc = 4804;
-			text = $STR_VKC_KEYS;
+			text = $STR_CL_VKC_KEYS;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
 			x = 0.11; y = 0.26;
 			w = 0.35;
@@ -286,7 +286,7 @@ class vkc {
 
 		class claimVehicle : vkc_RscButtonMenu {
 			idc = 4850;
-			text = $STR_VKC_CLAIM;
+			text = $STR_CL_VKC_CLAIM;
 			onButtonClick = "vkc_isOk = true;closeDialog 0;";
 			x = 0.1 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.9 - (1 / 25);
@@ -296,7 +296,7 @@ class vkc {
 
 		class changeKey : vkc_RscButtonMenu {
 			idc = 4851;
-			text = $STR_VKC_CHANGE;
+			text = $STR_CL_VKC_CHANGE;
 			onButtonClick = "vkc_isOk = true;closeDialog 0;";
 			x = 0.1 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.9 - (1 / 25);

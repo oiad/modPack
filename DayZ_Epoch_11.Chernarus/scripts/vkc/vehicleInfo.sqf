@@ -9,11 +9,11 @@ _gearCount = {
 
 if (vkc_action == "claim") then {
 	ctrlShow[4850,true];
-	_text = "claim vehicle";
+	_text = localize "STR_CL_VKC_CLAIM";
 	_price = vkc_claimPrice;
 } else {
 	ctrlShow[4851,true];
-	_text = "change vehicle key";
+	_text = localize "STR_CL_VKC_CHANGE";
 	_price = vkc_changePrice;
 };
 
@@ -60,7 +60,7 @@ _formattedText = format [
 	_weaponsCount,
 	_magazineCount,
 	_backPackCount,
-	_text,
+	toLower (_text),
 	_price
 ];
 
