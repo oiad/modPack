@@ -68,8 +68,10 @@ vg_limit = [["Land",5],["Air",5],["Ship",5]];
 
 // Vehicle Key Changer
 
-vkc_claimPrice = 1000; // Amount in worth for claiming a vehicle. See the top of this script for an explanation.
-vkc_changePrice = 5000; // Amount in worth for changing the key for a vehicle. See the top of this script for an explanation.
+vkc_claimPrice = 2500; // Amount in worth for claiming a vehicle.
+vkc_changePrice = 2500; // Amount in worth for changing the key for a vehicle.
+vkc_clearAmmo = true; // Clear the ammo of vehicles after they have been rekeyed/claimed? (stops users getting a free rearm)
+vkc_disableThermal = [""]; // Array of vehicle config classes as well as vehicle classnames to disable thermal on when being spawned. i.e: ["All","Land","Air","Ship","StaticWeapon","AH1Z","MTVR"];
 
 //Player self-action handles
 dayz_resetSelfActions = {

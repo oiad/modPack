@@ -1,5 +1,7 @@
 //private ["_control","_button","_parent","_group","_pos","_item","_conf","_name","_cfgActions","_numActions","_height","_menu","_config","_type","_script","_outputOriented","_compile","_array","_outputClass","_outputType"];
+
 disableSerialization;
+
 _control = _this select 0;
 _button = _this select 1;
 _parent = findDisplay 106;
@@ -22,7 +24,7 @@ if (_button == 1) then {
 		(!DZE_SelfTransfuse && _item in ["ItemBloodbag","wholeBloodBagANEG","wholeBloodBagAPOS","wholeBloodBagBNEG","wholeBloodBagBPOS","wholeBloodBagABNEG","wholeBloodBagABPOS","wholeBloodBagONEG","wholeBloodBagOPOS"]) or
 		(!dayz_groupSystem && _item == "ItemRadio")
 	) exitWith {};
-	
+
 	if (mouseOverCarry) then {
 		_item = DayZ_onBack;
 		carryClick = true;
