@@ -25,6 +25,5 @@ player setVariable [Z_MoneyVariable,_myMoney,true];
 systemChat format[localize "STR_CL_ZSC_TAKE_COINS",[_hisMoney] call BIS_fnc_numberText,CurrencyName,_name];
 
 player playActionNow "PutDown";
-uiSleep 2;
 
 dayz_actionInProgress = false;
