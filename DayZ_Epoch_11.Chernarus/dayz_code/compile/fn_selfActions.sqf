@@ -678,11 +678,16 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 		if (s_player_packvault < 0 && (_characterID == dayz_combination || _ownerID == _uid)) then {
 			s_player_packvault = player addAction [format["<t color='#ff0000'>%1</t>",(format[localize "STR_EPOCH_ACTIONS_PACK",_text])], "\z\addons\dayz_code\actions\vault_pack.sqf",_cursorTarget, 0, false, true];
 		};
+		if (s_player_changeVaultCode < 0 && (_characterID == dayz_combination || _ownerID == _uid)) then {
+			s_player_changeVaultCode = player addAction [format[localize "STR_CL_CC_CODE_CHANGE",_text], "scripts\changeCode.sqf",_cursorTarget, 0, false, true];
+		};
 	} else {
 		player removeAction s_player_packvault;
 		s_player_packvault = -1;
 		player removeAction s_player_lockvault;
 		s_player_lockvault = -1;
+		player removeAction s_player_changeVaultCode;
+		s_player_changeVaultCode = -1;
 	};
 
 	//Player Deaths
@@ -741,7 +746,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 			_upgrade = getArray (configFile >> "CfgVehicles" >> (typeOf _cursorTarget) >> "upgradeBuilding");
 			if (((_hasAccess select 0) or (_hasAccess select 2) or (_hasAccess select 3)) && (count _upgrade) > 0) then {
 				s_player_lastTarget set [0,_cursorTarget];
-				s_player_upgrade_build = player addAction [format[localize "STR_EPOCH_UPGRADE",_text], "\z\addons\dayz_code\actions\player_upgrade.sqf",_cursorTarget, -1, false, true];
+				s_player_upgrade_build = player addAction [format[localize "STR_EPOCH_UPGRADE",_text], "dayz_code\actions\player_upgrade.sqf",_cursorTarget, -1, false, true];
 			};
 		};
 	} else {
@@ -764,9 +769,14 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 				s_player_downgrade_build = player addAction [format[localize "STR_EPOCH_ACTIONS_REMLOCK",_text], "\z\addons\dayz_code\actions\player_buildingDowngrade.sqf",_cursorTarget, -2, false, true];
 			};
 		};
+		if (s_player_changeDoorCode < 0) then {
+			s_player_changeDoorCode = player addAction [format[localize "STR_CL_CC_CODE_CHANGE",_text], "scripts\changeCode.sqf",_cursorTarget, 0, false, true];
+		};
 	} else {
 		player removeAction s_player_downgrade_build;
 		s_player_downgrade_build = -1;
+		player removeAction s_player_changeDoorCode;
+		s_player_changeDoorCode = -1;
 	};
 
 	// inplace maintenance tool
@@ -1144,6 +1154,11 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
 
 	player removeAction s_player_clothes;
 	s_player_clothes = -1;
+
+	player removeAction s_player_changeVaultCode;
+	s_player_changeVaultCode = -1;
+	player removeAction s_player_changeDoorCode;
+	s_player_changeDoorCode = -1;
 };
 
 //Dog actions on player self

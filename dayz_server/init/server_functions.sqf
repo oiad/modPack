@@ -55,6 +55,8 @@ spawn_vehicles = compile preprocessFileLineNumbers "\z\addons\dayz_server\compil
 
 call compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\garage\init.sqf";
 
+call compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_changeCode.sqf";
+
 server_medicalSync = {
 	_player = _this select 0;
 	_array = _this select 1;

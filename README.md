@@ -117,4 +117,6 @@ By default the trader files are in Briefcase format and single currency is turne
 
 1. Currently I don't have battleye filters set up for DEFAULT Epoch 1.0.6.2 filters, I am working on this but there is a lot that has changed since Epoch 1.0.6.1
 
+For changeCode: https://github.com/oiad/changeCode#battleye-filters
+
 **[>> Download <<](https://github.com/oiad/modPack/archive/master.zip)**
