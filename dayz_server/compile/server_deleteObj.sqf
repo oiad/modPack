@@ -1,7 +1,8 @@
 /*
-[_objectID,_objectUID,_activatingPlayer,_objPos,dayz_authKey] call server_deleteObj;
-For PV calls from the client use this function, otherwise if calling directly from the server use server_deleteObjDirect
+	[_objectID,_objectUID,_activatingPlayer,_objPos,dayz_authKey] call server_deleteObj;
+	For PV calls from the client use this function, otherwise if calling directly from the server use server_deleteObjDirect
 */
+
 private["_id","_uid","_key","_activatingPlayer","_objPos","_clientKey","_exitReason","_PlayerUID","_processDelete"];
 
 if (count _this < 5) exitWith {diag_log "Server_DeleteObj error: Improper parameter format";};
@@ -18,15 +19,12 @@ if (_exitReason != "") exitWith {diag_log _exitReason};
 
 if (isServer) then {
 	if (_processDelete) then {deleteVehicle _objPos};
-	//remove from database
 	if (parseNumber _id > 0) then {
-		//Send request
 		_key = format["CHILD:304:%1:",_id];
 		_key call server_hiveWrite;
 	} else  {
-		//Send request
 		_key = format["CHILD:310:%1:",_uid];
 		_key call server_hiveWrite;
 	};
-	diag_log format["DELETE: %1 (%2) deleted %3 with %4 @%5 %6",if (alive _activatingPlayer) then {name _activatingPlayer} else {"DeadPlayer"},getPlayerUID _activatingPlayer,if (typeName _objPos == "OBJECT") then {typeOf _objPos} else {"unknown"},if (parseNumber _id > 0) then {format ["ID: %1",_id]} else {format ["UID: %1",_uid]},mapGridPosition (getPosATL _activatingPlayer),getPosATL _activatingPlayer];
+	diag_log format["DELETE: %1 (%2) deleted %3 with %4 @%5 %6",if (alive _activatingPlayer) then {name _activatingPlayer} else {"DeadPlayer"},getPlayerUID _activatingPlayer,if (typeName _objPos == "OBJECT") then {typeOf _objPos} else {"unknown"},if (parseNumber _id > 0) then {format ["ID: %1",_id]} else {format ["UID: %1",_uid]},mapGridPosition _activatingPlayer,getPosATL _activatingPlayer];
 };

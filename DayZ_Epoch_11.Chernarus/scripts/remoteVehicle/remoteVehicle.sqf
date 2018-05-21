@@ -112,7 +112,7 @@ if (_option == 2) then {
 			[rv_selected,false] call dayz_engineSwitch;
 		};
 	} else {
-		[rv_selected,true] call dayz_engineSwitch
+		[rv_selected,true] call dayz_engineSwitch;
 	};
 };
 

@@ -149,7 +149,7 @@ if (_endMission) exitwith {
 	
 	//Log For GhostMode
 	diag_log format["INFO - Player:%1(UID:%2/CID%3) Status: LOGIN CANCELLED, GHOSTMODE. Time remianing: %4",_playerName,_playerID,_charID,_remaining];
-	
+
 	PVCDZ_plr_Ghost = [_remaining];
 	(owner _playerObj) publicVariableClient "PVCDZ_plr_Ghost";
 };
