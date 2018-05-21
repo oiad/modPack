@@ -589,10 +589,6 @@ if (_canBuild select 0) then {
 					};
 
 					_tmpbuilt setVariable ["CharacterID",_combination,true]; //set combination as a character ID
-					if (_classname in DZE_lockedStorage) then {
-						_message = format ["%1 (%2) placed a %3 @%4 %5",dayz_playerName,dayz_playerUID,_classname,mapGridPosition _location,_location];
-						["lockables",_message,true] call fnc_log;
-					};
 
 					//call publish precompiled function with given args and send public variable to server to save item to database
 					if (DZE_permanentPlot) then {
@@ -624,9 +620,6 @@ if (_canBuild select 0) then {
 								_friendsArr = [[dayz_playerUID,toArray (name player)]];
 								_tmpbuilt setVariable ["plotfriends", _friendsArr, true];
 								PVDZ_obj_Publish = [dayz_characterID,_tmpbuilt,[_dir,_location,dayz_playerUID,_vector],_friendsArr,player,dayz_authKey];
-
-								_message = format ["%1 (%2) placed a plot pole @%3 %4",dayz_playerName,dayz_playerUID,mapGridPosition _location,_location];
-								["plotpole",_message,true] call fnc_log;
 							} else {
 								PVDZ_obj_Publish = [dayz_characterID,_tmpbuilt,[_dir,_location,dayz_playerUID,_vector],[],player,dayz_authKey];
 							};
