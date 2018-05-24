@@ -143,10 +143,10 @@ if (!_canBuild) exitWith {dayz_actionInProgress = false; format[_exitWith,_needT
 
 _heliPad = [];
 if !(isNil "vg_list") then {
-	_heliPad = nearestObjects [if (_isNearPlot) then {_plotCheck select 2} else {player},vg_heliPads,if (_isNearPlot) then {DZE_maintainRange} else {Z_VehicleDistance}];
+	_heliPad = nearestObjects [if (_isNearPlot > 0) then {_plotCheck select 2} else {player},vg_heliPads,if (_isNearPlot > 0) then {DZE_maintainRange} else {Z_VehicleDistance}];
 };
 
-if (count _heliPad > 0 && {_isNearPlot}) then {dayz_actionInProgress = false;systemChat "You already have a heli pad!";};
+if (count _heliPad > 0 && {_isNearPlot > 0}) then {dayz_actionInProgress = false;systemChat "You already have a heli pad!";};
 
 _missing = "";
 _hasrequireditem = true;
@@ -349,7 +349,7 @@ if (_hasrequireditem) then {
 
 		while {_isOk} do {
 			["Working",0,[100,15,10,0]] call dayz_NutritionSystem;
-			if !((getPlayerUID player) in DZE_DEPLOYABLE_ADMINS) then { 
+			if !(dayz_playerUID in DZE_DEPLOYABLE_ADMINS) then { 
 				player playActionNow "Medic";
 				[player,"repair",0,false,20] call dayz_zombieSpeak;
 				[player,20,true,(getPosATL player)] spawn player_alertZombies;
