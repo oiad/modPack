@@ -6,6 +6,7 @@ All my mods in one place, tested and working by salival
 # Supported mods:
 
 * Bury Bodies [(repo here)](https://github.com/oiad/buryBodies)
+* Change Code [(repo here)](https://github.com/oiad/changeCode)
 * Community Localizations [(repo here)](https://github.com/oiad/communityLocalizations)
 * Deploy Anything [(repo here)](https://github.com/oiad/DayZEpochDeployableBike)
 * Locate Vehicle [(repo here)](https://github.com/oiad/locateVehicle)
@@ -30,7 +31,7 @@ All my mods in one place, tested and working by salival
 * [Mission folder install](https://github.com/oiad/modPack#mission-folder-install)
 * [dayz_server install](https://github.com/oiad/modPack#dayz_server-folder-install)
 * [Enabling ZSC/global banking](https://github.com/oiad/modPack#enabling-zscglobal-banking)
-* [mySQL database setup](https://github.com/oiad/modPack#mysql-database-setup)
+* [mySQL database setup fresh install](https://github.com/oiad/modPack#mySQL-database-setup-fresh-install)
 * [infiSTAR install](https://github.com/oiad/modPack#infistar-install)
 * [Battleye Filters](https://github.com/oiad/modPack#battleye-filters)
 	
@@ -89,11 +90,13 @@ By default the trader files are in Briefcase format and single currency is turne
 	#include "\z\addons\dayz_code\Configs\CfgServerTrader\CfgServerTrader.hpp" // Standard briefcase trader files.
 	```
 
-# mysql database setup	:
+# mySQL database setup fresh install:
 
 1. If you are only allowed access to your main epoch database from your hosting provider, you can import the <code>SQL\virtualGarage.sql</code> file without editing it.
 
-2. Open your HiveExt.ini and edit the [Objects] section, add or modify the following code to this section. If needed configure the [ObjectDB] section for external object database settings
+2. Virtual Garage includes a custom<code>HiveExt.dll</code> with a customizable table name and stored vehicle cleanup days, this needs to replace your current/official Epoch <code>HiveExt.dll</code> copy the supplied <code>HiveExt.dll</code> from <code>@DayZ_Epoch_Server</code> to your <code>Arma2 OA\@DayZ_Epoch_Server</code> folder.
+
+3. Open your HiveExt.ini and edit the [Objects] section, add or modify the following code to this section. If needed configure the [ObjectDB] section for external object database settings
 
 ```
 ; Table name for the virtual garage data to be stored in, default table is 'garage'
