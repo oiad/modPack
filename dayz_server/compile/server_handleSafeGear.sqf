@@ -69,6 +69,11 @@ switch (_status) do {
 		deleteVehicle _obj;
 		
 		[_weapons,_magazines,_backpacks,_holder] call fn_addCargo;
+
+		if (_charID in ["0000","10000"]) then {
+			RemoteMessage = ["private",[_playerUID,format ["The combination on this %1 has been reset to %2",getText (configFile >> "CfgVehicles" >> _unlockedClass >> "displayName"),if (_unlockedClass == "VaultStorage") then {"0000"} else {"RED00"}]]];
+			publicVariable "RemoteMessage";
+		};
 	};
 	case 1: { //Locking
 		_lockedClass = getText (configFile >> "CfgVehicles" >> _type >> "lockedClass");
