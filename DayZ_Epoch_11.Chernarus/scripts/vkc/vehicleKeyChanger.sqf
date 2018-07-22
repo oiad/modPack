@@ -148,13 +148,13 @@ if (_enoughMoney) then {
 		[_typeOf,objNull] call fn_waitForObject;
 		dze_waiting = nil;
 
-		PVDZE_veh_Upgrade = [vkc_cursorTarget,[getDir vkc_cursorTarget,_position],_typeOf,false,vkc_charID,player,dayz_authKey,_message select 2];
+		PVDZE_veh_Upgrade = [vkc_cursorTarget,[getDir vkc_cursorTarget,_position],_typeOf,false,vkc_charID,player,dayz_authKey,if (vkc_action == "change") then {"changed the key for"} else {"claimed"}];
 		publicVariableServer "PVDZE_veh_Upgrade";
 
 		localize "STR_CL_VKC_WAIT" call dayz_rollingMessages;
 
 		waitUntil {!isNil "dze_waiting"};
-		
+
 		if (dze_waiting == "fail") then {
 			systemChat format[localize "STR_CL_VKC_FAIL_UPGRADE",_name];
 			if (z_singleCurrency) then {

@@ -76,6 +76,8 @@ vkc_changePrice = 2500; // Amount in worth for changing the key for a vehicle.
 vkc_clearAmmo = true; // Clear the ammo of vehicles after they have been rekeyed/claimed? (stops users getting a free rearm)
 vkc_disableThermal = [""]; // Array of vehicle config classes as well as vehicle classnames to disable thermal on when being spawned. i.e: ["All","Land","Air","Ship","StaticWeapon","AH1Z","MTVR"];
 
+DZE_maintainClasses = DZE_maintainClasses + ["HeliH","HeliHCivil","HeliHRescue","MAP_Heli_H_army","MAP_Heli_H_cross","Sr_border"];
+
 //Player self-action handles
 dayz_resetSelfActions = {
 	s_player_equip_carry = -1;
