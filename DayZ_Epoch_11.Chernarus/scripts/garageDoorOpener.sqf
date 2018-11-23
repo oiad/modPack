@@ -13,7 +13,7 @@ if (isNull _door) exitWith {dayz_actionInProgress = false; systemChat "Selected 
 
 {DZE_myVehicle removeAction _x} count s_player_gdoor_opener;s_player_gdoor_opener = [];
 s_player_gdoor_opener_ctrl = 1;
-		
+
 if (_door animationPhase "Open_door" == 0) then {
 	systemChat localize "STR_CL_GDO_DOOR_OPEN";
 	_door animate ["Open_door",1];
