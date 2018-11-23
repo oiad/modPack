@@ -56,6 +56,8 @@ if (isNull vkc_cursorTarget) exitWith {call _exit; systemChat "cursorTarget isNu
 
 if !(vkc_cursorTarget isKindOf "Air" || {vkc_cursorTarget isKindOf "LandVehicle"} || {vkc_cursorTarget isKindOf "Ship"}) exitWith {call _exit; localize "STR_CL_VKC_FAIL_CURSOR" call dayz_rollingMessages;};
 
+if (isNull DZE_myVehicle || {!(alive DZE_myVehicle)} || {!(local DZE_myVehicle)}) exitWith {call _exit; localize "str_epoch_player_245" call dayz_rollingMessages;};
+
 _vehicleID = vkc_cursorTarget getVariable ["ObjectID","0"];
 _vehicleUID = vkc_cursorTarget getVariable ["ObjectUID","0"];
 
@@ -117,6 +119,8 @@ _control lbSetCurSel 0;
 waitUntil {!dialog};
 
 if (!vkc_isOk) exitWith {call _exit;};
+
+if (isNull DZE_myVehicle || {!(alive DZE_myVehicle)} || {!(local DZE_myVehicle)}) exitWith {call _exit; localize "str_epoch_player_245" call dayz_rollingMessages;};
 
 _enoughMoney = false;
 _moneyInfo = [false,[],[],[],0];
