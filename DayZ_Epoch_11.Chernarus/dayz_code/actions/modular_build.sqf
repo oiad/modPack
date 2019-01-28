@@ -551,8 +551,10 @@ if (_canBuild select 0) then {
 							DZE_Lock_Door = "";
 							dayz_selectedDoor = objNull;
 
+							dayz_actionInProgress = false; // Remove in Epoch 1.0.6.3
 							createDialog "ComboLockUI";
 							waitUntil {!dialog};
+							dayz_actionInProgress = true; // Remove in Epoch 1.0.6.3
 
 							if (keypadCancel || {parseNumber DZE_Lock_Door == 0}) then {
 								_combination_1 = floor(random 10);
