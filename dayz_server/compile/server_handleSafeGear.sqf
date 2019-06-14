@@ -71,8 +71,8 @@ switch (_status) do {
 		[_weapons,_magazines,_backpacks,_holder] call fn_addCargo;
 
 		if (_charID in ["0000","10000"]) then {
-			RemoteMessage = ["private",[_playerUID,format ["The combination on this %1 has been reset to %2",getText (configFile >> "CfgVehicles" >> _unlockedClass >> "displayName"),if (_unlockedClass == "VaultStorage") then {"0000"} else {"RED00"}]]];
-			publicVariable "RemoteMessage";
+			RemoteMessage = ["systemChat",["STR_CL_ZSC_COMBO_RESET",getText (configFile >> "CfgVehicles" >> _unlockedClass >> "displayName"),if (_unlockedClass == "VaultStorage") then {"0000"} else {"RED00"}]];
+			(owner _player) publicVariableClient "RemoteMessage";
 		};
 	};
 	case 1: { //Locking
@@ -125,8 +125,8 @@ switch (_status) do {
 			_wealth = _player getVariable [Z_MoneyVariable,0];
 			_player setVariable [Z_MoneyVariable,_wealth + _coins,true];
 			
-			RemoteMessage = ["private",[_playerUID,format ["You packed %1 while it had %2 %3 in it, it has been transferred to your %3 total.",_type,[_coins] call BIS_fnc_numberText,CurrencyName]]];
-			publicVariable "RemoteMessage";
+			RemoteMessage = ["systemChat",["STR_CL_ZSC_PACK_WARNING",_type,[_coins] call BIS_fnc_numberText,CurrencyName]];
+			(owner _player) publicVariableClient "RemoteMessage";
 		};
 		
 		// Delete safe from database
