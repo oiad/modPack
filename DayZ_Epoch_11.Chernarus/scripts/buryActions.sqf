@@ -2,7 +2,7 @@
 	Bury/Butcher body script by salival (https://github.com/oiad)
 */
 
-private ["_action","_backPackMag","_backPackWpn","_crate","_corpse","_cross","_gain","_humanity","_humanityAmount","_isBury","_grave","_name","_backPack","_position","_sound","_notOnRoad"];
+private ["_action","_backPackMag","_backPackWpn","_crate","_corpse","_cross","_gain","_humanity","_humanityAmount","_isBury","_grave","_name","_playerNear","_backPack","_position","_sound","_notOnRoad"];
 
 if (dayz_actionInProgress) exitWith {localize "str_player_actionslimit" call dayz_rollingMessages;};
 dayz_actionInProgress = true;
@@ -14,6 +14,9 @@ _humanityAmount = 25; // Amount of humanity to gain or lose for burying/butcheri
 _notOnRoad = false; // Restrict burying/butchering on roads?
 
 if (isNull _corpse) exitWith {dayz_actionInProgress = false; systemChat "cursorTarget isNull!";};
+
+_playerNear = {isPlayer _x} count (([_corpse] call FNC_GetPos) nearEntities ["CAManBase", 10]) > 1;
+if (_playerNear) exitWith {dayz_actionInProgress = false; localize "str_pickup_limit_5" call dayz_rollingMessages;};
 
 player removeAction s_player_bury_human;
 s_player_bury_human = -1;
