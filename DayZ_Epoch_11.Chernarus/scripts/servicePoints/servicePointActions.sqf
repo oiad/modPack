@@ -116,7 +116,13 @@ if (_enoughMoney) then {
 			_magazines = getArray (configFile >> "CfgWeapons" >> _weaponType >> "magazines");
 			_ammo = _magazines select 0;
 
-			for "_i" from 1 to _magazineCount do {_vehicle addMagazineTurret [_ammo,_turret];};
+			if (_weaponType == "CMFlareLauncher") then {
+				_vehicle removeWeaponTurret ["CMFlareLauncher",_turret];
+				for "_i" from 1 to _magazineCount do {_vehicle addMagazineTurret [_ammo,_turret];};
+				_vehicle addWeaponTurret ["CMFlareLauncher",_turret];
+			} else {
+				for "_i" from 1 to _magazineCount do {_vehicle addMagazineTurret [_ammo,_turret];};
+			};
 
 			[format[localize "STR_CL_SP_REARMED",_weaponName,_name],1] call dayz_rollingMessages;
 		};
