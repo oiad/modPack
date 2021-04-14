@@ -10,14 +10,14 @@ _minDist = 5; // Minimum distance from the custom position to move vehicles to
 _maxDist = 1000; // Maximum distance from the safe zone position to find a safe position or custom position for relocation, setting this too low can make vehicles spawn very close to other vehicles.
 _objDist = 15; // Minimum distance from the safe position for relocation to the center of the nearest object. Specifying quite a large distance here will slow the function and might often fail to find a suitable position.
 _unlock = false; // Unlock vehicle when moved from the safe zone?
-_maxDamage = 0.75; // Vehicles above this amount of damage will be deleted
+_maxDamage = 0.75; // Vehicles above or equal to this amount of damage will be deleted
 
 {
 	_safeZonePos = _x select 0;
 	_safeZoneRadius = _x select 1;
 	_nearVehicles = _safeZonePos nearEntities [["Air","LandVehicle","Ship"],_safeZoneRadius];
 	{
-		if (damage _x > _maxDamage) then {
+		if (damage _x >= _maxDamage) then {
 			_message = format ["[SAFEZONE] %1 was deleted from the server for being too damaged before relocate: @%2 %3",typeOf _x,mapGridPosition _x,getPosATL _x];
 			diag_log _message;
 			deleteVehicle _x;

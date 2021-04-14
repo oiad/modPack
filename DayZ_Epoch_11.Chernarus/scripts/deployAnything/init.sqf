@@ -2,8 +2,7 @@ call compile preprocessFileLineNumbers "scripts\deployAnything\config.sqf";
 call compile preprocessFileLineNumbers "scripts\deployAnything\wrapper.sqf";
 call compile preprocessFileLineNumbers "scripts\deployAnything\functions.sqf";
 
-DZE_DEPLOYABLE_VERSION = "2.8.2";
-DZE_CRV_DEPLOYABLE = 3;
+DZE_DEPLOYABLE_VERSION = "3.0.0";
 
 diag_log format["Deploy Anything: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
 
@@ -43,11 +42,8 @@ if (isServer) exitWith {
 };
 
 [] spawn {
-	if (!(isServer) && {isNil "DZE_CLICK_ACTIONS_BUILD"}) exitWith {
+	if (!isDedicated && {isNil "DZE_CLICK_ACTIONS"}) exitWith {
 		diag_log "Deploy Anything: ERROR -- Click Actions Handler missing!";
-	};
-	if (!(isServer) && {DZE_CLICK_ACTIONS_BUILD != DZE_CRV_DEPLOYABLE}) exitWith {
-		diag_log format["Deploy Anything: ERROR -- Click Actions Handler loaded build #%1! Required build #%2!",DZE_CLICK_ACTIONS_BUILD,DZE_CRV_DEPLOYABLE];
 	};
 
 	{

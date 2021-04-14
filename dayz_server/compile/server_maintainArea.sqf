@@ -27,8 +27,8 @@ if (_option == 1) then {
 				_key call server_hiveWrite;
 			};
 	} count _objectsInfo;
-	_name = if (alive _player) then {name _player;} else {"unknown player";};
-	diag_log format ["MAINTAIN: %1 (%2) maintained %3 objects @%4 %5",_name,getPlayerUID _player,count _objectsInfo,mapGridPosition (getPosATL _player),getPosATL _player];
+	_name = if (alive _player) then { name _player; } else { "Dead Player"; };
+	diag_log format ["MAINTAIN AREA BY %1 - %2 Objects at %3, Grid: %4", _name, (count _objectsInfo), (getPosATL _player), mapGridPosition(getPosATL _player)];
 } else {
 	_obj = _objectsInfo select 0;
 	_ID = _objectsInfo select 1;

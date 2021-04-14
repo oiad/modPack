@@ -1,6 +1,6 @@
 // Vehicle Service Point (Rearm) by Axe Cop
-// Rewritten for single currency, gems, briefcase support and 1.0.6 epoch compatibility by salival - https://github.com/oiad/
-// Requires DayZ Epoch 1.0.6 for gem support.
+// Rewritten for single currency, gems, briefcase support and 1.0.7 epoch compatibility by salival - https://github.com/oiad/
+// Requires DayZ Epoch 1.0.7 for gem support.
 
 private ["_vehicle","_costs","_fuel","_magazineCount","_weapon","_type","_name","_weaponType","_weaponName","_turret","_magazines","_ammo","_textMissing","_pos","_message","_action","_damage","_selection","_strH","_disabled","_amount","_enoughMoney","_moneyInfo","_wealth","_success","_reason","_cmpt"];
 
@@ -20,7 +20,7 @@ _amount = (_this select 3) select 1;
 if (_action == "rearm") then {
 	_magazineCount = (_this select 3) select 2;
 	_weapon = (_this select 3) select 3;
-	
+
 	_weaponType = _weapon select 0;
 	_weaponName = _weapon select 1;
 	_turret = _weapon select 2;
@@ -39,7 +39,7 @@ if (_disabled) exitWith {[_reason,1] call dayz_rollingMessages};
 
 _enoughMoney = false;
 _moneyInfo = [false, [], [], [], 0];
-_wealth = player getVariable[Z_MoneyVariable,0];
+_wealth = player getVariable [(["cashMoney","globalMoney"] select Z_persistentMoney),0];
 
 if (Z_SingleCurrency) then {
 	_enoughMoney = (_wealth >= _amount);
@@ -52,19 +52,19 @@ if (Z_SingleCurrency) then {
 
 _success = if (Z_SingleCurrency) then {true} else {[player,_amount,_moneyInfo,true,0] call Z_payDefault};
 
-if (!_success && {_enoughMoney}) exitWith {systemChat localize "STR_EPOCH_TRADE_GEAR_AND_BAG_FULL"}; // Not enough room in gear or bag to accept change
+if (!_success && _enoughMoney) exitWith {systemChat localize "STR_EPOCH_TRADE_GEAR_AND_BAG_FULL"}; // Not enough room in gear or bag to accept change
 
 if (_enoughMoney) then {
 	_success = if (Z_SingleCurrency) then {_amount <= _wealth} else {[player,_amount,_moneyInfo,false,0] call Z_payDefault};
 	if (_success) then {
-		if (Z_SingleCurrency) then {
-			player setVariable[Z_MoneyVariable,(_wealth - _amount),true];
+		if (Z_SingleCurrency) then {			
+			player setVariable [(["cashMoney","globalMoney"] select Z_persistentMoney),(_wealth - _amount),true];
 		};
-		[player,50,true,getPosATL player] spawn player_alertZombies;
+
+		[player,(getPosATL player),50,"refuel"] spawn fnc_alertZombies;
 		_vehicle engineOn false;
 		if (_action == "refuel") then {
 			[format[localize "STR_CL_SP_REFUELING",_name],1] call dayz_rollingMessages;
-			[_vehicle,"refuel",0,false] call dayz_zombieSpeak;
 
 			while {vehicle player == _vehicle} do {
 				if ([0,0,0] distance (velocity _vehicle) > 1) exitWith {[format[localize "STR_CL_SP_REFUELING_STOPPED",_name],1] call dayz_rollingMessages};
@@ -87,7 +87,8 @@ if (_enoughMoney) then {
 					_allRepaired = false;
 					[format[localize "STR_CL_SP_REPAIRING_STOPPED",_name],1] call dayz_rollingMessages;
 				};
-				_damage = [_vehicle,_x] call object_getHit;
+				_hits = [_vehicle,_x] call object_getHit;
+				_damage = _hits select 0;
 				if (_damage > 0) then {
 					_cmpt = [];
 					{
@@ -102,7 +103,7 @@ if (_enoughMoney) then {
 					uiSleep ((_this select 3) select 2);
 				};
 			} forEach _hitpoints;
-			PVDZ_veh_Save = [_vehicle,"repair"];
+			PVDZ_veh_Save = [_vehicle,"repair",true];
 			publicVariableServer "PVDZ_veh_Save";
 
 			if (_allRepaired) then {
@@ -121,6 +122,8 @@ if (_enoughMoney) then {
 				for "_i" from 1 to _magazineCount do {_vehicle addMagazineTurret [_ammo,_turret];};
 				_vehicle addWeaponTurret ["CMFlareLauncher",_turret];
 			} else {
+				{_vehicle removeMagazinesTurret [_x,_turret];} forEach _magazines;
+
 				for "_i" from 1 to _magazineCount do {_vehicle addMagazineTurret [_ammo,_turret];};
 			};
 

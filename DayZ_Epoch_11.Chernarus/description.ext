@@ -30,65 +30,10 @@ aiKills = 1;
 diagRadio = 1;
 diagHit = 1;
 
-class CfgSounds
-{
-    sounds[] =
-    {
-        Radio_Message_Sound
-    };
-    class Radio_Message_Sound
-    {
-        name = "Radio_Message_Sound";
-        sound[] = {scripts\radio\radio.ogg,0.4,1};
-        titles[] = {};
-    };
-};
-
-class RscTitles {
-    #include "scripts\zsc\playerHud.hpp"
-	class wm_disp {
-		idd = -1;
-		onLoad = "uiNamespace setVariable ['wm_disp', _this select 0]";
-		fadein = 0;
-		fadeout = 0;
-		duration = 10e10;
-		controlsBackground[] = {};
-		objects[] = {};
-		class controls {
-			class wm_text2 {
-				idc = 1;
-				x = safeZoneX+0.027;//safeZoneW*0.01;
-				y = safeZoneY+safeZoneH-0.16;
-				w = 0.151*safeZoneH;
-				h = 0.057*safeZoneH;
-				shadow = 2;
-				class Attributes {
-					font = "EtelkaNarrowMediumPro";
-					color = "#24FFFFFF";
-					align = "left"; // put "center" here if you want some background
-					valign = "middle";
-					shadow = 2;
-				};
-				colorBackground[] = { 1, 0.3, 0, 0 };  // uncomment and increase 4th number to have a background
-				font = "EtelkaNarrowMediumPro";
-				size = 0.06*safeZoneH;
-				type = 13;
-				style = 0;
-				text = "";
-			};
-		};
-	};	
-};
-
-#include "dayz_code\gui\description.hpp"
-#include "\z\addons\dayz_code\Configs\CfgLoot\CfgLoot.hpp"
-//#include "dayz_code\Configs\CfgServerTrader.hpp" // Uncomment for coins CfgServerTrader files.
-#include "\z\addons\dayz_code\Configs\CfgServerTrader\CfgServerTrader.hpp" // Standard briefcase trader files.
-
-#include "\z\addons\dayz_code\Configs\RscDisplay\ZSCdefines.hpp"
-#include "dayz_code\configs\RscDisplay\advancedTrading.hpp"
-#include "scripts\zsc\zsc.hpp"
-
+#include "\z\addons\dayz_code\gui\description.hpp"
+#include "dayz_code\Configs\CfgLoot\CfgLoot.hpp"
+//#include "\z\addons\dayz_code\Configs\CfgServerTrader\CfgServerTrader.hpp" // Normal traders
+#include "dayz_code\Configs\CfgServerTraderZSC\CfgServerTrader.hpp" // Single currency traders
 #include "scripts\virtualGarage\virtualGarage.hpp"
-#include "scripts\vkc\vkc.hpp"
 #include "scripts\remoteVehicle\remoteVehicle.hpp"
+#include "scripts\vkc\vkc.hpp"

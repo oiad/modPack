@@ -59,7 +59,7 @@ if (_characterID != "?") then {
 	//if player object is alive lets sync the player and remove the body and if ghosting is active add the player id to the array
 	if (alive _playerObj) then {
 		// High priority. Sync must finish fast before player object isNull
-		[_playerObj,nil,true,[],_inCombat] call server_playerSync;
+		[_playerObj,nil,nil,nil,_inCombat] call server_playerSync;
 		
 		/*
 			Low priority code below this point where
@@ -71,7 +71,7 @@ if (_characterID != "?") then {
 			// Moved setVariables to server_playerSync since they are high priority			
 			// Messages are low priority. Player object not needed
 			diag_log format["PLAYER COMBAT LOGGED: %1(%3) at location %2",_playerName,_playerPos,_playerUID];
-			[nil, nil, rTitleText, format["PLAYER COMBAT LOGGED: %1",_playerName], "PLAIN"] call RE; // Message whole server
+			[nil, nil, rTitleText, format["Player %1 combat logged at location %2.",_playerName, mapGridPosition _playerPos], "PLAIN"] call RE; // Message whole server
 		};
 		
 		if (dayz_enableGhosting) then {
@@ -85,7 +85,7 @@ if (_characterID != "?") then {
 		};
 	} else {
 		//Done in server_playerSync above if player is alive
-		{[_x,"gear"] call server_updateObject} count (nearestObjects [_playerPos,DayZ_GearedObjects,10]);
+		{[_x,"gear"] call server_updateObject} count (nearestObjects [[_playerObj] call FNC_GetPos,DayZ_GearedObjects,10]);
 	};
 	
 	[_playerUID,_characterID,3,_playerName,(_playerPos call fa_coor2str)] call dayz_recordLogin;

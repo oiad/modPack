@@ -1,22 +1,21 @@
 /*
 	Bury/Butcher body script by salival (https://github.com/oiad)
 */
-
-private ["_action","_backPackMag","_backPackWpn","_crate","_corpse","_cross","_gain","_humanity","_humanityAmount","_isBury","_grave","_name","_playerNear","_backPack","_position","_sound","_notOnRoad"];
-
 if (dayz_actionInProgress) exitWith {localize "str_player_actionslimit" call dayz_rollingMessages;};
 dayz_actionInProgress = true;
 
+private ["_action","_backPackMag","_backPackWpn","_crate","_corpse","_cross","_gain","_humanityAmount","_isBury","_grave","_name","_playerNear","_backPack","_position","_sound","_notOnRoad"];
+
 _corpse = (_this select 3) select 0;
+if (isNull _corpse) exitWith {dayz_actionInProgress = false; systemChat localize "str_cursorTargetNotFound";};
+
+_playerNear = {isPlayer _x} count (([_corpse] call FNC_GetPos) nearEntities ["CAManBase", 10]) > 1;
+if (_playerNear) exitWith {dayz_actionInProgress = false; localize "str_pickup_limit_5" call dayz_rollingMessages;};
+
 _action = (_this select 3) select 1;
 
 _humanityAmount = 25; // Amount of humanity to gain or lose for burying/butchering a body.
 _notOnRoad = false; // Restrict burying/butchering on roads?
-
-if (isNull _corpse) exitWith {dayz_actionInProgress = false; systemChat "cursorTarget isNull!";};
-
-_playerNear = {isPlayer _x} count (([_corpse] call FNC_GetPos) nearEntities ["CAManBase", 10]) > 1;
-if (_playerNear) exitWith {dayz_actionInProgress = false; localize "str_pickup_limit_5" call dayz_rollingMessages;};
 
 player removeAction s_player_bury_human;
 s_player_bury_human = -1;
@@ -35,7 +34,7 @@ _corpse setVariable["isBuried",true,true];
 
 _backPack = typeOf (unitBackPack _corpse);
 
-_crate = createVehicle ["USOrdnanceBox_EP1",_position,[],0,"CAN_COLLIDE"];
+_crate = createVehicle ["DZ_AmmoBoxSmallUS",_position,[],0,"CAN_COLLIDE"];
 _crate setPosATL [(_position select 0)+1,(_position select 1)+1.5,_position select 2];
 _crate setVariable ["permaLoot",true,true];
 _crate setVariable ["bury",true,true];
@@ -50,9 +49,6 @@ if (_isBury) then {
 	_cross setPosATL [(_position select 0)+1,(_position select 1)-1.2,_position select 2];
 	_cross setVariable ["bury",true,true];
 };
-
-clearWeaponCargoGlobal _crate;
-clearMagazineCargoGlobal _crate;
 
 {_crate addWeaponCargoGlobal [_x,1]} forEach weapons _corpse;
 {_crate addMagazineCargoGlobal [_x,1]} forEach magazines _corpse;
@@ -81,10 +77,11 @@ if (_isBury) then {
 	} else {
 		localize "STR_CL_BA_RIP_UNKNOWN" call dayz_rollingMessages;
 	};
+} else {
+	["knives",0.2] call fn_dynamicTool;
 };
 
-_humanity = player getVariable ["humanity",0];
-_gain = if (_isBury) then {+_humanityAmount} else {-_humanityAmount};
-player setVariable ["humanity",(_humanity + _gain),true];
+_gain = if (_isBury) then {_humanityAmount} else {-_humanityAmount};
+_gain call player_humanityChange;
 
 dayz_actionInProgress = false;

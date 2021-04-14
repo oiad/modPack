@@ -1,20 +1,24 @@
+#define PATH "z\addons\dayz_server\system\scheduler\"
 
-_base="z\addons\dayz_server\system\scheduler\";
-
-call compile preprocessFileLineNumbers (_base+"sched_corpses.sqf");
-call compile preprocessFileLineNumbers (_base+"sched_lootpiles.sqf");
-call compile preprocessFileLineNumbers (_base+"sched_sync.sqf");
-call compile preprocessFileLineNumbers (_base+"sched_safetyVehicle.sqf");
-call compile preprocessFileLineNumbers (_base+"sched_lootCrates.sqf");
+call compile preprocessFileLineNumbers (PATH+"sched_corpses.sqf");
+call compile preprocessFileLineNumbers (PATH+"sched_lootpiles.sqf");
+call compile preprocessFileLineNumbers (PATH+"sched_sync.sqf");
+call compile preprocessFileLineNumbers (PATH+"sched_safetyVehicle.sqf");
+call compile preprocessFileLineNumbers (PATH+"sched_event.sqf");
+call compile preprocessFileLineNumbers (PATH+"sched_traps.sqf");
+call compile preprocessFileLineNumbers (PATH+"sched_lootCrates.sqf");
 
 [
 	// period	offset	code <-> ctx				init code ->ctx
+	 [ 60,		0,		sched_event,				sched_event_init ],
 	 [ 60,	 	224,	sched_corpses ],
 	 [ 60,	 	240,	sched_lootCrates ],
 	 [ 300,	 	336,	sched_lootpiles_5m,         sched_lootpiles_5m_init ],
 	 [ 6,	 	340,	sched_lootpiles ],
 	 [ 900,		0,		sched_sync ],
-	 [ 120,		48,		sched_safetyVehicle ]
+	 [ 120,		48,		sched_safetyVehicle ],
+	 [ 360,		480,	sched_fps ],
+	 [ 30,		60,		sched_traps,				sched_traps_init ]
 ] execFSM ("z\addons\dayz_code\system\scheduler\scheduler.fsm");
 
 //diag_log [ __FILE__, "Scheduler started"];

@@ -2,7 +2,7 @@
 	DayZ Base Building
 	Made for DayZ Epoch please ask permission to use/edit/distrubute email vbawol@veteranbastards.com.
 */
-private ["_IsNearPlot","_abort","_animState","_buildables","_buildcheck","_canBuild","_cancel","_classname","_classnametmp","_counter","_dir","_distance","_exitWith","_finished","_friendlies","_hasbuilditem","_hasrequireditem","_hastoolweapon","_index","_inVehicle","_isAllowedUnderGround","_isMedic","_isNear","_isOk","_isfriendly","_isowner","_limit","_location","_location1","_location2","_message","_missing","_nearestPole","_needNear","_needText","_objHDiff","_object","_offset","_onLadder","_ownerID","_plotcheck","_position","_proceed","_reason","_requireplot","_rotate","_started","_text","_tmpbuilt","_vehicle","_zheightchanged","_zheightdirection","_heliPad","_charID"];
+private ["_IsNearPlot","_abort","_animState","_buildables","_buildcheck","_canBuild","_cancel","_classname","_classnametmp","_counter","_dir","_distance","_exitWith","_finished","_friendlies","_hasbuilditem","_hasrequireditem","_hastoolweapon","_index","_inVehicle","_isAllowedUnderGround","_isMedic","_isNear","_isOk","_isfriendly","_isowner","_limit","_location","_location1","_location2","_message","_missing","_nearestPole","_needNear","_needText","_objHDiff","_object","_offset","_onLadder","_ownerID","_plotcheck","_position","_proceed","_reason","_requireplot","_rotate","_started","_text","_tmpbuilt","_vehicle","_zheightchanged","_zheightdirection","_havePad","_heliPad","_charID"];
 
 if (dayz_actionInProgress) exitWith {localize "str_epoch_player_40" call dayz_rollingMessages;};
 dayz_actionInProgress = true;
@@ -141,12 +141,20 @@ if (_IsNearPlot == 0) then {
 
 if (!_canBuild) exitWith {dayz_actionInProgress = false; format[_exitWith,_needText,_distance] call dayz_rollingMessages;};
 
-_heliPad = [];
+_havePad = false;
 if !(isNil "vg_list") then {
-	_heliPad = nearestObjects [if (_isNearPlot > 0) then {_plotCheck select 2} else {player},vg_heliPads,if (_isNearPlot > 0) then {DZE_maintainRange} else {Z_VehicleDistance}];
+	if (_className in vg_heliPads) then {
+		_heliPad = nearestObjects [player,vg_heliPads,vg_distance];
+		if (count _heliPad > 0) then {
+			_havePad = true;
+		};
+	};
 };
 
-if (count _heliPad > 0 && {_isNearPlot > 0}) then {dayz_actionInProgress = false;systemChat "You already have a heli pad!";};
+if (_havePad) exitWith {
+	dayz_actionInProgress = false;
+	systemChat "You already have a heli pad!";
+};
 
 _missing = "";
 _hasrequireditem = true;
@@ -349,7 +357,7 @@ if (_hasrequireditem) then {
 
 		while {_isOk} do {
 			["Working",0,[100,15,10,0]] call dayz_NutritionSystem;
-			if !(dayz_playerUID in DZE_DEPLOYABLE_ADMINS) then { 
+			if !((getPlayerUID player) in DZE_DEPLOYABLE_ADMINS) then { 
 				player playActionNow "Medic";
 				[player,"repair",0,false,20] call dayz_zombieSpeak;
 				[player,20,true,(getPosATL player)] spawn player_alertZombies;

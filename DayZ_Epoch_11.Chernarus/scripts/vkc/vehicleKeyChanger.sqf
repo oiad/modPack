@@ -52,7 +52,7 @@ _exit = {
 _playerNear = {isPlayer _x} count (([vkc_cursorTarget] call FNC_GetPos) nearEntities ["CAManBase", 10]) > 1;
 if (_playerNear) exitWith {call _exit; localize "str_pickup_limit_5" call dayz_rollingMessages;};
 
-if (isNull vkc_cursorTarget) exitWith {call _exit; systemChat "cursorTarget isNull!";};
+if (isNull vkc_cursorTarget) exitWith {call _exit; systemChat localize "str_cursorTargetNotFound";};
 
 if !(vkc_cursorTarget isKindOf "Air" || {vkc_cursorTarget isKindOf "LandVehicle"} || {vkc_cursorTarget isKindOf "Ship"}) exitWith {call _exit; localize "STR_CL_VKC_FAIL_CURSOR" call dayz_rollingMessages;};
 
@@ -124,7 +124,7 @@ if (isNull DZE_myVehicle || {!(alive DZE_myVehicle)} || {!(local DZE_myVehicle)}
 
 _enoughMoney = false;
 _moneyInfo = [false,[],[],[],0];
-_wealth = player getVariable[Z_MoneyVariable,0];
+_wealth = player getVariable [(["cashMoney","globalMoney"] select Z_persistentMoney),0];
 
 if (Z_SingleCurrency) then {
 	_enoughMoney = (_wealth >= _amount);
@@ -142,7 +142,7 @@ if (!_success && {_enoughMoney}) exitWith {call _exit;systemChat localize "STR_E
 if (_enoughMoney) then {
 	_success = if (Z_SingleCurrency) then {_amount <= _wealth} else {[player,_amount,_moneyInfo,false,0] call Z_payDefault};
 	if (_success) then {
-		if (Z_SingleCurrency) then {player setVariable[Z_MoneyVariable,(_wealth - _amount),true];};
+		if (Z_SingleCurrency) then {player setVariable [(["cashMoney","globalMoney"] select Z_persistentMoney),(_wealth - _amount),true];};
 
 		vkc_cursorTarget setVehicleLock "LOCKED";
 		player playActionNow "Medic";
@@ -152,7 +152,7 @@ if (_enoughMoney) then {
 		[_typeOf,objNull] call fn_waitForObject;
 		dze_waiting = nil;
 
-		PVDZE_veh_Upgrade = [vkc_cursorTarget,[getDir vkc_cursorTarget,_position],_typeOf,false,vkc_charID,player,dayz_authKey,if (vkc_action == "change") then {"changed the key for"} else {"claimed"}];
+		PVDZE_veh_Upgrade = [vkc_cursorTarget,[getDir vkc_cursorTarget,_position],_typeOf,vkc_charID,player,dayz_authKey,if (vkc_action == "change") then {"changed the key for"} else {"claimed"}];
 		publicVariableServer "PVDZE_veh_Upgrade";
 
 		localize "STR_CL_VKC_WAIT" call dayz_rollingMessages;
@@ -162,7 +162,7 @@ if (_enoughMoney) then {
 		if (dze_waiting == "fail") then {
 			systemChat format[localize "STR_CL_VKC_FAIL_UPGRADE",_name];
 			if (z_singleCurrency) then {
-				player setVariable[Z_MoneyVariable,_wealth,true];
+				player setVariable [(["cashMoney","globalMoney"] select Z_persistentMoney),_wealth,true];
 			} else {
 				Z_Selling = true;
 				_success = [_amount,0,false,0,[],[],false] call Z_returnChange;

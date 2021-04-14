@@ -1,19 +1,19 @@
 /*
 	Originally by Zabn
-	Modified for DayZ Epoch 1.0.6+ by salival (https://github.com/oiad)
+	Modified for DayZ Epoch 1.0.7+ by salival (https://github.com/oiad)
 */
-
-private ["_body","_clothesTaken","_finished","_itemNew","_itemNewName","_okSkin","_playerNear","_result","_skin"];
 
 if (dayz_actionInProgress) exitWith {localize "str_player_actionslimit" call dayz_rollingMessages;};
 dayz_actionInProgress = true;
+
+private ["_body","_clothesTaken","_finished","_itemNew","_itemNewName","_okSkin","_playerNear","_result","_skin"];
 
 _body = _this select 3;
 
 player removeAction s_player_clothes;
 s_player_clothes = -1;
 
-if (isNull _body) exitWith {dayz_actionInProgress = false; systemChat "cursorTarget isNull!";};
+if (isNull _body) exitWith {dayz_actionInProgress = false; systemChat localize "str_cursorTargetNotFound";};
 
 _playerNear = {isPlayer _x} count (([_body] call FNC_GetPos) nearEntities ["CAManBase", 10]) > 1;
 if (_playerNear) exitWith {dayz_actionInProgress = false; localize "str_pickup_limit_5" call dayz_rollingMessages;};

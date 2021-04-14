@@ -1,10 +1,10 @@
 /*
 	Vehicle Service Point by Axe Cop
-	Rewritten for single currency, gems, briefcase support and 1.0.6 epoch compatibility by salival - https://github.com/oiad/
+	Rewritten for single currency, gems, briefcase support and 1.0.7 epoch compatibility by salival - https://github.com/oiad/
 	
-	Requires DayZ Epoch 1.0.6.2
+	Requires DayZ Epoch 1.0.7
 
-	This version adds support for both single currency and gems (from the epoch 1.0.6 update) as well as the original epoch briefcase currency system. 
+	This version adds support for both single currency and gems (from the epoch 1.0.7 update) as well as the original epoch briefcase currency system. 
 	Instead of pricing things like the original way, prices are now done on a "worth" similar to how coins are done. The price value of items are below.
 	
 	1 silver = 1 worth
@@ -243,17 +243,17 @@ while {true} do {
 			};
 			_lastVehicle = _vehicle;
 			_lastRole = _role;
-			if ((SP_refuel_action < 0) && {_refuel_enable}) then {
+			if ((SP_refuel_action < 0) && _refuel_enable) then {
 				_costs = [_vehicle,_refuel_costs] call _fnc_getCosts;
 				_actionTitle = [localize "config_depot.sqf8",_costs] call _fnc_actionTitle;
 				SP_refuel_action = _vehicle addAction [_actionTitle,_folder + "servicePointActions.sqf",["refuel",_costs,_refuel_updateInterval,_refuel_amount],-1,false,true];
 			};
-			if ((SP_repair_action < 0) && {_repair_enable}) then {
+			if ((SP_repair_action < 0) && _repair_enable) then {
 				_costs = [_vehicle,_repair_costs] call _fnc_getCosts;
 				_actionTitle = [localize "config_depot.sqf1",_costs] call _fnc_actionTitle;
 				SP_repair_action = _vehicle addAction [_actionTitle,_folder + "servicePointActions.sqf",["repair",_costs,_repair_repairTime],-1,false,true];
 			};
-			if ((count _role > 1) && {count SP_rearm_actions == 0} && {_rearm_enable}) then {
+			if ((count _role > 1) && _rearm_enable && {count SP_rearm_actions == 0}) then {
 				_weapons = [_vehicle,_role] call _fnc_getWeapons;
 				{
 					_weaponName = _x select 1;

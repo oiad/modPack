@@ -10,8 +10,7 @@ fnc_can_do = {
 fnc_bike_crafting_animation = {
 	private ["_isLoopDone","_isAnimationStarted","_isAnimationCompleted","_animationState","_isAnimationActive","_exitWith"];
 
-	[player,"repair",0,false,10] call dayz_zombieSpeak;
-	[player,10,true,getPosATL player] spawn player_alertZombies;
+	[player,(getPosATL player),30,"repair"] spawn fnc_alertZombies;
 
 	player playActionNow "Medic";
 	r_interrupt = false;

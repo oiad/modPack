@@ -1,7 +1,5 @@
 //private ["_control","_button","_parent","_group","_pos","_item","_conf","_name","_cfgActions","_numActions","_height","_menu","_config","_type","_script","_outputOriented","_compile","_array","_outputClass","_outputType"];
-
 disableSerialization;
-
 _control = _this select 0;
 _button = _this select 1;
 _parent = findDisplay 106;
@@ -14,17 +12,16 @@ if (_button == 1) then {
 		localize "str_player_actionslimit" call dayz_rollingMessages;
 	};
 
-	private ["_conf","_name","_compile","_height","_item","_isKey"];
+	private ["_conf","_name","_compile","_height","_item"];
 	_group = _parent displayCtrl 6902;
 
 	_pos = ctrlPosition _group;
 
 	_item = gearSlotData _control;
 	if ( //No right click action
-		(!DZE_SelfTransfuse && _item in ["ItemBloodbag","wholeBloodBagANEG","wholeBloodBagAPOS","wholeBloodBagBNEG","wholeBloodBagBPOS","wholeBloodBagABNEG","wholeBloodBagABPOS","wholeBloodBagONEG","wholeBloodBagOPOS"]) or
-		(!dayz_groupSystem && _item == "ItemRadio")
+		(!DZE_SelfTransfuse && {_item in ["ItemBloodbag","wholeBloodBagANEG","wholeBloodBagAPOS","wholeBloodBagBNEG","wholeBloodBagBPOS","wholeBloodBagABNEG","wholeBloodBagABPOS","wholeBloodBagONEG","wholeBloodBagOPOS"]})
 	) exitWith {};
-
+	
 	if (mouseOverCarry) then {
 		_item = DayZ_onBack;
 		carryClick = true;
@@ -42,7 +39,8 @@ if (_button == 1) then {
 	_cfgActions = _conf >> "ItemActions";
 	_numActions = (count _cfgActions);
 	_height = 0;
-
+	if (!dayz_groupSystem && {_item == "ItemRadio"}) then {_numActions = 1;}; // Used to bypass the group action when not enabled.
+	
 	//Populate Menu
 	for "_i" from 0 to (_numActions - 1) do
 	{
@@ -71,7 +69,7 @@ if (_button == 1) then {
 		_menu ctrlSetText format[_type,_name];
 		_menu ctrlSetEventHandler ["ButtonClick",_compile];
 	};
-
+	
 	_isKey = ((["ItemKey",_item] call fnc_inString) && (_item != "ItemKeyKit"));
 
 	{
@@ -95,11 +93,11 @@ if (_button == 1) then {
 			};
 			_numActions = _numActions + 1;
 		};
-	} forEach DZE_CLICK_ACTIONS;
-
+	} forEach DZE_CLICK_ACTIONS;	
+	
 	_pos set [3,_height];
 
-	//systemChat format["Obj: %1 \nHeight: %2\nPos: %3",_item,_height,_pos];
+	//hint format["Obj: %1 \nHeight: %2\nPos: %3",_item,_height,_grpPos];
 
 	_group ctrlShow true;
 	ctrlSetFocus _group;

@@ -8,7 +8,7 @@ sched_lootCrates = {
 	#define CENTER getMarkerPos "center"
 	#define RADIUS ((getMarkerSize "center") select 1)*2
 
-	_crates = CENTER nearObjects ["USOrdnanceBox_EP1",RADIUS];
+	_crates = CENTER nearObjects ["DZ_AmmoBoxSmallUS",RADIUS];
 	_graves = CENTER nearObjects ["Grave",RADIUS];
 	_cross = CENTER nearObjects ["GraveCross1",RADIUS];
 

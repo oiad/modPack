@@ -2,10 +2,10 @@
 	locateVehicle by salival (https://github.com/oiad)
 */
 
-private ["_characterID","_found","_i","_keyID","_keyIDS","_keyList","_keyName","_keyNames","_locateMarkerDelete","_locateMarkerTime","_marker","_name","_position","_vehicle"];
-
 if (dayz_actionInProgress) exitWith {localize "str_player_actionslimit" call dayz_rollingMessages;};
 dayz_actionInProgress = true;
+
+private ["_characterID","_found","_i","_keyID","_keyIDS","_keyList","_keyName","_keyNames","_locateMarkerDelete","_locateMarkerTime","_marker","_name","_position","_vehicle"];
 
 _keyList = call epoch_tempKeys;
 _keyIDS = _keyList select 0;

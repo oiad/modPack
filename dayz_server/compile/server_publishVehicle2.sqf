@@ -98,6 +98,6 @@ if (_outcome != "PASS") then {
 
 	PVDZE_veh_Init = _object;
 	publicVariable "PVDZE_veh_Init";
-	
-	diag_log format["PURCHASE: %1 (%2) purchased %3 @%4 %5",if (alive _activatingPlayer) then {name _activatingPlayer} else {"unknown player"},getPlayerUID _activatingPlayer,_class,mapGridPosition _location,_location];
+
+	diag_log format["PUBLISH: %1(%2) bought %3 with UID %4 @%5",(_activatingPlayer call fa_plr2str),_playerUID,_class,_uid,(_location call fa_coor2str)];
 };
