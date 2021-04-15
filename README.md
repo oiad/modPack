@@ -91,5 +91,5 @@ By default the trader files are in Coins format and single currency is turned on
 
 # Battleye Filters:
 
-1. Take the all 3 battleye file script.txt, createvehicle.txt, publicvariable.txt and copy them in your server config folder where the other battleye filters are and overwrite them.
+1. Take all 3 Battleye files (script.txt, createvehicle.txt, publicvariable.txt) and copy them into your server config folder where the other Battleye filters are and overwrite them.
 
