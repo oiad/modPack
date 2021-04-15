@@ -5,7 +5,7 @@
 //List of files in your mission to check. For example, you may want to add 'custom\variables.sqf' etc.
 //Remove any you aren't using
 _files = [
-	'description.ext','init.sqf','mission.sqm','rules.sqf'
+"description.ext","init.sqf","mission.sqm","rules.sqf","dayz_code\configVariables.sqf","dayz_code\compile\fn_selfActions.sqf","dayz_code\compile\ui_selectSlot.sqf","dayz_code\init\compiles.sqf","dayz_code\init\variables.sqf","scripts\buryActions.sqf","scripts\garageDoorOpener.sqf","scripts\locateVehicle.sqf","scripts\takeClothes.sqf","scripts\clickActions\config.sqf","scripts\deployAnything\config.sqf","scripts\deployAnything\deploy.sqf","scripts\deployAnything\functions.sqf","scripts\deployAnything\init.sqf","scripts\deployAnything\pack.sqf","scripts\deployAnything\player_deploy.sqf","scripts\deployAnything\wrapper.sqf","scripts\remoteVehicle\remoteVehicle.sqf","scripts\remoteVehicle\vehicleInfo.sqf","scripts\servicePoints\init.sqf","scripts\servicePoints\servicePointActions.sqf","scripts\virtualGarage\player_getVehicle.sqf","scripts\virtualGarage\player_MaintainVG.sqf","scripts\virtualGarage\player_removePad.sqf","scripts\virtualGarage\player_storeVehicle.sqf","scripts\virtualGarage\vehicleInfo.sqf","scripts\virtualGarage\virtualGarage.sqf","scripts\vkc\vehicleInfo.sqf","scripts\vkc\vehicleKeyChanger.sqf"
 ];
 
 _list = [];

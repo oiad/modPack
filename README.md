@@ -35,6 +35,7 @@ All my mods in one place, tested and working by salival update for Epoch 1.0.7 b
 	
 # Install:
 
+This pack is meant to be installed on a fresh Epoch 1.0.7 Server. Do not install anything before this. No Admin Tool, no Spawn Selection or anything else. Also take the stock Epoch 1.0.7 Battleye filters and overwrite them with the filters that come with this pack.
 By default the trader files are in Coins format and single currency is turned on. To enable Briefcases please set Z_SingleCurrency = false; and use the Normal traders in the description.ext.
 
 # Mission folder install:
@@ -90,5 +91,5 @@ By default the trader files are in Coins format and single currency is turned on
 
 # Battleye Filters:
 
-
+1. Take the all 3 battleye file script.txt, createvehicle.txt, publicvariable.txt and copy them in your server config folder where the other battleye filters are and overwrite them.
 
