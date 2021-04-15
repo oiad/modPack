@@ -14,6 +14,7 @@ All my mods in one place, tested and working by salival update for Epoch 1.0.7 b
 * Take Clothes [(repo here)](https://github.com/oiad/TakeClothes)
 * Virtual Garage [(repo here)](https://github.com/oiad/virtualGarage)
 * Vehicle Key Changer [(repo here)](https://github.com/oiad/vkc)
+* Remote Vehicles [(repo here)](https://github.com/oiad/remoteVehicle)
 
 # REPORTING ERRORS/PROBLEMS
 
@@ -38,20 +39,13 @@ By default the trader files are in Coins format and single currency is turned on
 
 # Mission folder install:
 
-1. Currently this is set up for Epoch (no Overwatch) Chernarus, you can change this to how you see fit but for the install purposes we will carry on with Chernarus.
+1. Currently this is set up for Epoch Chernarus, you can change this to how you see fit but for the install purposes we will carry on with Chernarus.
 
 2. Copy the <code>DayZ_Epoch_11.Chernarus</code> folder to your <code>Arma2 OA\MPMissions</code> folder
 
-3. Rename the <code>mission - overwatch.sqm</code> to <code>mission.sqm</code> if you are using Overwatch
+3. Any overwrites to any settings you make from the following file: <code>dayz_code\configVariables.sqf</code>
 
-4. Any overwrites to any settings you make from the following files:
-	```sqf
-	https://github.com/EpochModTeam/DayZ-Epoch/blob/master/SQF/dayz_code/configVariables.sqf
-	https://github.com/EpochModTeam/DayZ-Epoch/blob/master/Server%20Files/MPMissions/DayZ_Epoch_11.Chernarus/init.sqf
-	```
-	Please put your overwrites in <code>dayz_code\init\variables.sqf</code>
-
-6. Pack your <code>DayZ_Epoch_11.Chernarus</code> folder into a PBO with your favourite PBO tool.
+4. Pack your <code>DayZ_Epoch_11.Chernarus</code> folder into a PBO with your favourite PBO tool.
 
 # dayz_server folder install:
 
@@ -64,9 +58,13 @@ By default the trader files are in Coins format and single currency is turned on
 	execVM "\z\addons\dayz_server\system\lit_fireplaces.sqf";
 	```
 
+# Editing:
+
+1. The whole configVariables.sqf is in your missionfile, so you can change whatever you want. You do not have to move the changed lines into the init.sqf.
+
 # Enabling ZSC/global banking:
 
-1. In <code>DayZ_Epoch_11.Chernarus\init.sqf</code> toggle the following options to suit your servers requirements:
+1. In <code>dayz_code\configVariables.sqf</code> in your missionfile toggle the following options to suit your servers requirements:
 	```sqf
 	Z_singleCurrency = true; // Enable or disable coins?
 	Z_globalBanking = true; // Enable global banking? Disabled by default.
@@ -92,6 +90,5 @@ By default the trader files are in Coins format and single currency is turned on
 
 # Battleye Filters:
 
-1. Currently I don't have battleye filters set up for DEFAULT Epoch 1.0.6.2 filters, I am working on this but there is a lot that has changed since Epoch 1.0.6.1
 
 
