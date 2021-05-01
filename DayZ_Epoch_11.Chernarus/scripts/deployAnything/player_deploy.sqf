@@ -284,9 +284,10 @@ if (_hasrequireditem) then {
 
 		if (DZE_5) exitWith {
 			_isOk = false;
+			_position = [_object] call FNC_GetPos;
 			detach _object;
 			_dir = getDir _object;
-			_position = getPosATL _object;
+			_vector = [(vectorDir _object),(vectorUp _object)];
 			deleteVehicle _object;
 		};
 		if (_location1 distance _location2 > DZE_buildMaxMoveDistance) exitWith {
@@ -331,7 +332,12 @@ if (_hasrequireditem) then {
 			_tmpbuilt enableSimulation false;
 		};
 		_tmpbuilt setVariable ["ObjectUID", "1", true];
-		_tmpbuilt setdir _dir;
+
+		if (_index call getPermanent) then {
+			_tmpbuilt setVectorDirAndUp _vector;
+		} else {
+			_tmpbuilt setdir _dir; // setdir is incompatible with setVectorDirAndUp and should not be used together on the same object https://community.bistudio.com/wiki/setVectorDirAndUp
+		};
 
 		_location = _position;
 
@@ -412,9 +418,9 @@ if (_hasrequireditem) then {
 				[format[localize "str_build_01",_text],1] call dayz_rollingMessages;
 				_tmpbuilt setVariable ["OEMPos",_location,true];
 				if (_index call getPermanent) then {
-						_charID = dayz_characterID;
+					_charID = dayz_characterID;
 					_tmpbuilt setVariable ["CharacterID",_charID,true];
-					PVDZ_obj_Publish = [_charID,_tmpbuilt,[_dir,_position,dayz_playerUID],[],player,dayz_authKey];
+					PVDZ_obj_Publish = [_charID,_tmpbuilt,[_dir,_position,dayz_playerUID,_vector],[],player,dayz_authKey];
 					publicVariableServer "PVDZ_obj_Publish";
 				};
 				if (_index call getClearCargo) then {
