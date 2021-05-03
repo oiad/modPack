@@ -2,7 +2,7 @@
 	DayZ Base Building
 	Made for DayZ Epoch please ask permission to use/edit/distrubute email vbawol@veteranbastards.com.
 */
-private ["_IsNearPlot","_abort","_animState","_buildables","_buildcheck","_canBuild","_cancel","_classname","_classnametmp","_counter","_dir","_distance","_exitWith","_finished","_friendlies","_hasbuilditem","_hasrequireditem","_hastoolweapon","_index","_inVehicle","_isAllowedUnderGround","_isMedic","_isNear","_isOk","_isfriendly","_isowner","_limit","_location","_location1","_location2","_message","_missing","_nearestPole","_needNear","_needText","_objHDiff","_object","_offset","_onLadder","_ownerID","_plotcheck","_position","_proceed","_reason","_requireplot","_rotate","_started","_text","_tmpbuilt","_vehicle","_zheightchanged","_zheightdirection","_havePad","_heliPad","_charID"];
+private ["_vector","_IsNearPlot","_abort","_animState","_buildables","_buildcheck","_canBuild","_cancel","_classname","_classnametmp","_counter","_dir","_distance","_exitWith","_finished","_friendlies","_hasbuilditem","_hasrequireditem","_hastoolweapon","_index","_inVehicle","_isAllowedUnderGround","_isMedic","_isNear","_isOk","_isfriendly","_isowner","_limit","_location","_location1","_location2","_message","_missing","_nearestPole","_needNear","_needText","_objHDiff","_object","_offset","_onLadder","_ownerID","_plotcheck","_position","_proceed","_reason","_requireplot","_rotate","_started","_text","_tmpbuilt","_vehicle","_zheightchanged","_zheightdirection","_havePad","_heliPad","_charID"];
 
 if (dayz_actionInProgress) exitWith {localize "str_epoch_player_40" call dayz_rollingMessages;};
 dayz_actionInProgress = true;

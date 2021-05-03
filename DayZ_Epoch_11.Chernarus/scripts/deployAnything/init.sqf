@@ -2,9 +2,9 @@ call compile preprocessFileLineNumbers "scripts\deployAnything\config.sqf";
 call compile preprocessFileLineNumbers "scripts\deployAnything\wrapper.sqf";
 call compile preprocessFileLineNumbers "scripts\deployAnything\functions.sqf";
 
-DZE_DEPLOYABLE_VERSION = "3.0.0";
+_DZE_DEPLOYABLE_VERSION = "3.0.1";
 
-diag_log format["Deploy Anything: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
+diag_log format["Deploy Anything: loading version %1 ...",_DZE_DEPLOYABLE_VERSION];
 
 player_deploy = compile preprocessFileLineNumbers "scripts\deployAnything\player_deploy.sqf";
 
@@ -34,9 +34,10 @@ DZE_DEPLOYABLES = [];
 if (isServer) exitWith {
 	diag_log "Deploy Anything: adding deployables to safe vehicle list...";
     {
-        DZE_safeVehicle = DZE_safeVehicle + [(_forEachIndex call getDeployableClass)];
-        if (!(_forEachIndex call getDeployableSimulation)) then {
-            DayZ_SafeObjects set [count DayZ_SafeObjects,(_forEachIndex call getDeployableClass)];
+		local _classname = _forEachIndex call getDeployableClass;
+        DZE_safeVehicle = DZE_safeVehicle + [_classname];
+        if (_forEachIndex call getPermanent && (!(_classname isKindof "AllVehicles") || (_classname isKindOf "StaticWeapon"))) then {
+            DayZ_SafeObjects set [count DayZ_SafeObjects,_classname];
         };
     } forEach DZE_DEPLOYABLES;
 };
