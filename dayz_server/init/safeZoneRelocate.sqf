@@ -19,9 +19,9 @@ _maxDamage = 0.75; // Vehicles above or equal to this amount of damage will be d
 	{
 		if (damage _x >= _maxDamage) then {
 			_message = format ["[SAFEZONE] %1 was deleted from the server for being too damaged before relocate: @%2 %3",typeOf _x,mapGridPosition _x,getPosATL _x];
-			diag_log _message;
+			diag_log _message;			
+			[_x getVariable["ObjectID","0"],_x getVariable["ObjectUID","0"],_x] call server_deleteObjDirect;
 			deleteVehicle _x;
-			[_x getVariable["ObjectID","0"],_x getVariable["ObjectUID","0"],"safeZoneRelocate",typeOf _x] call server_deleteObjDirect;
 		} else {
 			if (_useCustomPosition) then {
 				_position = [_customPosition,_minDist,_maxDist,_objDist,1,0,0,[]] call BIS_fnc_findSafePos;
