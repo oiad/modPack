@@ -2,7 +2,7 @@
 #include "\z\addons\dayz_code\configVariables.sqf" // Don't remove this line
 #include "dayz_code\configVariables.sqf" // Don't remove this line
 
-diag_log "Loading Server with Salivals Mod Pack Version: 1.00.03";
+diag_log "Loading Server with Salivals Mod Pack Version: 1.00.04";
 
 //DefaultMagazines = ["HandRoadFlare","ItemBandage","ItemPainkiller","8Rnd_9x18_Makarov","8Rnd_9x18_Makarov"];
 //DefaultWeapons = ["Makarov_DZ","ItemFlashlight"];
